@@ -91,6 +91,7 @@
         const arrows = document.querySelectorAll(".arrows");
         const today = document.querySelectorAll(".today");
 
+
         setDate(dayCounter);
 
         today.forEach(function(element){
@@ -132,6 +133,16 @@
                 let template = document.querySelector('#expandedDates');
                 let clone = template.content.cloneNode(true);
                 document.getElementById("target").appendChild(clone);
+                //add me now barend
+                let eventAdd = document.getElementById('eventAdd');
+                eventAdd.addEventListener('click', function(){
+                    if (document.getElementById('eventForm')) {
+                        document.getElementById('eventAddTarget').innerHTML = "";
+                    }
+                    const temp = document.getElementById('eventForm');
+                    let clone = temp.content.cloneNode(true);
+                    document.getElementById('eventAddTarget').appendChild(clone);
+                });
 
 
             })
