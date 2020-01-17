@@ -1,9 +1,151 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfileController!{% endblock %}
+{% block title %}Timeline{% endblock %}
 
 {% block body %}
+    <div class="container">
+        <h1 class="col-12 text-center my-5">Timeline</h1>
+        <main>
+            <section class="row dateContainer">
+                <div class="today col-1 mx-auto rounded text-center btn">Today</div>
+            </section>
+            <section class="row dateContainer">
+                <div class="col-1 text-right arrows">&#8612;</div>
+                <div class="dateBox col-1 py-2 text-center">-3</div>
+                <div class="dateBox col-1 py-2 text-center">-2</div>
+                <div class="dateBox col-1 py-2 text-center">-1</div>
+                <div class="dateBox col-1 py-2 text-center">0</div>
+                <div class="dateBox col-1 py-2 text-center">+1</div>
+                <div class="dateBox col-1 py-2 text-center">+2</div>
+                <div class="dateBox col-1 py-2 text-center">+3</div>
+                <div class="col-1 arrows">&#8614;</div>
+            </section>
+            <div id="target"></div>
+        </main>
+    </div>
+    <template id="expandedDates">
+        <section class="row dateContainer py-5 d-flex">
+            <div class="col-1 text-center">0:00</div>
+            <div class="col-1 text-center">1:00</div>
+            <div class="col-1 text-center">2:00</div>
+            <div class="col-1 text-center">3:00</div>
+            <div class="col-1 text-center">4:00</div>
+            <div class="col-1 text-center">5:00</div>
+            <div class="col-1 text-center">6:00</div>
+            <div class="col-1 text-center">7:00</div>
+            <div class="col-1 text-center">8:00</div>
+            <div class="col-1 text-center">9:00</div>
+            <div class="col-1 text-center">10:00</div>
+            <div class="col-1 text-center">11:00</div>
+        </section>
+        <section class="row dateContainer py-5">
+            <div class="col-1 text-center">12:00</div>
+            <div class="col-1 text-center">13:00</div>
+            <div class="col-1 text-center">14:00</div>
+            <div class="col-1 text-center">15:00</div>
+            <div class="col-1 text-center">16:00</div>
+            <div class="col-1 text-center">17:00</div>
+            <div class="col-1 text-center">18:00</div>
+            <div class="col-1 text-center">19:00</div>
+            <div class="col-1 text-center">20:00</div>
+            <div class="col-1 text-center">21:00</div>
+            <div class="col-1 text-center">22:00</div>
+            <div class="col-1 text-center">23:00</div>
+        </section>
+    </template>
+    <template id="currentDate">
+        <div id="currentDateInside" class="col-1 text-center mx-auto"></div>
+    </template>
+    <script>
+        let dayCounter = 0;
+        const dates = document.querySelectorAll(".dateBox");
+        const arrows = document.querySelectorAll(".arrows");
+        const today = document.querySelectorAll(".today");
 
-    <h1>Hello World</h1>
+        setDate(dayCounter);
 
+        today.forEach(function(element){
+            element.addEventListener('click', function (e){
+                if (document.getElementById('target')) {
+                    document.getElementById('target').innerText = "";
+                }
+                dayCounter = 0;
+                setDate(dayCounter);
+            });
+        });
+
+        arrows.forEach(function(element, i){
+            element.addEventListener('click', function(e) {
+                switch (i) {
+                    case 0:
+                        dayCounter--;
+                        setDate(dayCounter);
+                        break;
+                    case 1:
+                        dayCounter++;
+                        setDate(dayCounter);
+                        break;
+                    default:
+                        break;
+                }
+            });
+        });
+
+        dates.forEach(function(element, i){
+            element.addEventListener('click', function(e){
+                if (document.getElementById('target')) {
+                    document.getElementById('target').innerText = "";
+                }
+                let currentDate = document.getElementById('currentDate');
+                let clonedDate = currentDate.content.cloneNode(true);
+                document.getElementById("target").appendChild(clonedDate);
+                document.getElementById("currentDateInside").innerHTML = dates[i].innerHTML;
+                let template = document.querySelector('#expandedDates');
+                let clone = template.content.cloneNode(true);
+                document.getElementById("target").appendChild(clone);
+
+
+            })
+        });
+
+        function setDate () {
+            dates.forEach(function(element, index){
+                var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                let date = new Date();
+                date.setDate(date.getDate() + dayCounter);
+                switch (index) {
+                    case 0:
+                        date.setDate(date.getDate() - 3);
+                        element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();
+                        break;
+                    case 1:
+                        date.setDate(date.getDate() - 2);
+                        element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();;
+                        break;
+                    case 2:
+                        date.setDate(date.getDate() - 1);
+                        element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();;
+                        break;
+                    case 3:
+                        date.setDate(date.getDate());
+                        element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();
+                        break;
+                    case 4:
+                        date.setDate(date.getDate() + 1);
+                        element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();
+                        break;
+                    case 5:
+                        date.setDate(date.getDate() + 2);
+                        element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();;
+                        break;
+                    case 6:
+                        date.setDate(date.getDate() + 3);
+                        element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();;
+                        break;
+                    default:
+                        break;
+                }
+            });
+        }
+    </script>
 {% endblock %}
