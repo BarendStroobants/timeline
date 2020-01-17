@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Person;
+use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -41,6 +42,24 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
+            ])
+            ->add('firstname', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+                
+            ])
+            ->add('name', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+
+            ])
+            ->add('nickname', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+
+            ])
+            ->add('age', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+
+            ])
+            ->add('adress', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+
+            ])
+            ->add('usage', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+
             ])
         ;
     }
