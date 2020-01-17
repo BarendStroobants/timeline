@@ -44,7 +44,7 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('firstname', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
-
+                
             ])
             ->add('name', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
 

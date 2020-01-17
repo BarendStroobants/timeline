@@ -5,15 +5,15 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TimelineController extends AbstractController
+class ProfileController extends AbstractController
 {
     /**
-     * @Route("/timeline", name="timeline")
+     * @Route("/profile", name="profile")
      */
     public function index()
     {
-        return $this->render('timeline/index.html.twig', [
-
+        return $this->render('profile/index.html.twig', [
+            'controller_name' => 'ProfileController',
         ]);
     }
 }
