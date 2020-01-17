@@ -22,9 +22,27 @@
             </section>
             <div id="target"></div>
             <section>
-                {{ form_start(form) }}
-                <button type="submit">Post Event</button>
-                {{ form_end(form) }}
+                <div class="row-1">
+                    <div class="col-4">
+                        <select name="events" id="events">
+                            <option value="event1">event1</option>
+                            <option value="event2">event2</option>
+                            <option value="event3">event3</option>
+                            <option value="event4">event4</option>
+                            <option value="event5">event5</option>
+                            <option value="event6">event6</option>
+                            <option value="event7">event7</option>
+                            <option value="event8">event8</option>
+                            <option value="event9">event9</option>
+                            <option value="event10">event10</option>
+                        </select>
+                    </div>
+                    <div class="col-8">
+                        {{ form_start(form) }}
+                        <button type="submit">Post Event</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
             </section>
         </main>
     </div>
@@ -69,8 +87,8 @@
 
         setDate(dayCounter);
 
-        today.forEach(function(element){
-            element.addEventListener('click', function (e){
+        today.forEach(function (element) {
+            element.addEventListener('click', function (e) {
                 if (document.getElementById('target')) {
                     document.getElementById('target').innerText = "";
                 }
@@ -79,8 +97,8 @@
             });
         });
 
-        arrows.forEach(function(element, i){
-            element.addEventListener('click', function(e) {
+        arrows.forEach(function (element, i) {
+            element.addEventListener('click', function (e) {
                 switch (i) {
                     case 0:
                         dayCounter--;
@@ -96,8 +114,8 @@
             });
         });
 
-        dates.forEach(function(element, i){
-            element.addEventListener('click', function(e){
+        dates.forEach(function (element, i) {
+            element.addEventListener('click', function (e) {
                 if (document.getElementById('target')) {
                     document.getElementById('target').innerText = "";
                 }
@@ -113,8 +131,8 @@
             })
         });
 
-        function setDate () {
-            dates.forEach(function(element, index){
+        function setDate() {
+            dates.forEach(function (element, index) {
                 var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
                 let date = new Date();
                 date.setDate(date.getDate() + dayCounter);
@@ -125,11 +143,13 @@
                         break;
                     case 1:
                         date.setDate(date.getDate() - 2);
-                        element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();;
+                        element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();
+                        ;
                         break;
                     case 2:
                         date.setDate(date.getDate() - 1);
-                        element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();;
+                        element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();
+                        ;
                         break;
                     case 3:
                         date.setDate(date.getDate());
@@ -141,11 +161,13 @@
                         break;
                     case 5:
                         date.setDate(date.getDate() + 2);
-                        element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();;
+                        element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();
+                        ;
                         break;
                     case 6:
                         date.setDate(date.getDate() + 3);
-                        element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();;
+                        element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();
+                        ;
                         break;
                     default:
                         break;
