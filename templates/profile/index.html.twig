@@ -21,13 +21,15 @@
                 <div class="col-1 arrows">&#8614;</div>
             </section>
             <div id="target"></div>
-            <section>
-                {{ form_start(form) }}
-                <button type="submit">Post Event</button>
-                {{ form_end(form) }}
-            </section>
         </main>
     </div>
+    <template id="eventForm">
+        <section>
+            {{ form_start(form) }}
+            <button type="submit">Post Event</button>
+            {{ form_end(form) }}
+        </section>
+    </template>
     <template id="expandedDates">
         <section class="row dateContainer py-5 d-flex">
             <div class="col-1 text-center">0:00</div>
@@ -57,6 +59,10 @@
             <div class="col-1 text-center">22:00</div>
             <div class="col-1 text-center">23:00</div>
         </section>
+        <section>
+            <div id="eventAdd" class="btn btn-lg btn-primary">Event Add</div>
+            <div id="eventAddTarget"></div>
+        </section>
     </template>
     <template id="currentDate">
         <div id="currentDateInside" class="col-1 text-center mx-auto"></div>
@@ -66,6 +72,7 @@
         const dates = document.querySelectorAll(".dateBox");
         const arrows = document.querySelectorAll(".arrows");
         const today = document.querySelectorAll(".today");
+
 
         setDate(dayCounter);
 
@@ -108,6 +115,15 @@
                 let template = document.querySelector('#expandedDates');
                 let clone = template.content.cloneNode(true);
                 document.getElementById("target").appendChild(clone);
+                let eventAdd = document.getElementById('eventAdd');
+                eventAdd.addEventListener('click', function(){
+                    if (document.getElementById('eventForm')) {
+                        document.getElementById('eventAddTarget').innerHTML = "";
+                    }
+                    const temp = document.getElementById('eventForm');
+                    let clone = temp.content.cloneNode(true);
+                    document.getElementById('eventAddTarget').appendChild(clone);
+                });
 
 
             })
