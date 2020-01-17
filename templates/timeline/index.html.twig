@@ -7,7 +7,7 @@
         <h1 class="col-12 text-center my-5">Timeline</h1>
         <main>
             <section class="row dateContainer">
-                <div class="col-1 text-right">&#8612;</div>
+                <div class="col-1 text-right arrows">&#8612;</div>
                 <div class="dateBox col-1 text-center">-3</div>
                 <div class="dateBox col-1 text-center">-2</div>
                 <div class="dateBox col-1 text-center">-1</div>
@@ -15,7 +15,7 @@
                 <div class="dateBox col-1 text-center">+1</div>
                 <div class="dateBox col-1 text-center">+2</div>
                 <div class="dateBox col-1 text-center">+3</div>
-                <div class="col-1">&#8614;</div>
+                <div class="col-1 arrows">&#8614;</div>
             </section>
         </main>
     </div>
@@ -27,7 +27,7 @@
         }
 
         dates.forEach(function(element, index){
-            var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
             let date = new Date();
             switch (index) {
