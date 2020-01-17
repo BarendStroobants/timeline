@@ -1,20 +1,70 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TimelineController!{% endblock %}
+{% block title %}Timeline{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="container">
+        <h1 class="col-12 text-center my-5">Timeline</h1>
+        <main>
+            <section class="row dateContainer">
+                <div class="col-1 text-right">&#8612;</div>
+                <div class="dateBox col-1 text-center">-3</div>
+                <div class="dateBox col-1 text-center">-2</div>
+                <div class="dateBox col-1 text-center">-1</div>
+                <div class="dateBox col-1 text-center">0</div>
+                <div class="dateBox col-1 text-center">+1</div>
+                <div class="dateBox col-1 text-center">+2</div>
+                <div class="dateBox col-1 text-center">+3</div>
+                <div class="col-1">&#8614;</div>
+            </section>
+        </main>
+    </div>
+    <script>
+        let dates = document.querySelectorAll(".dateBox");
+        for (let i = 0; i < dates.length; i++) {
+            let date = new Date();
+            dates[i].innerText = date;
+        }
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        dates.forEach(function(element, index){
+            var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/timeline/src/Controller/TimelineController.php'|file_link(0) }}">src/Controller/TimelineController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/timeline/templates/timeline/index.html.twig'|file_link(0) }}">templates/timeline/index.html.twig</a></code></li>
-    </ul>
-</div>
+            let date = new Date();
+            switch (index) {
+                case 0:
+                    date.setDate(date.getDate() - 3);
+                    element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();
+                    break;
+                case 1:
+                    date.setDate(date.getDate() - 2);
+                    element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();;
+                    break;
+                case 2:
+                    date.setDate(date.getDate() - 1);
+                    element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();;
+                    break;
+                case 3:
+                    date.setDate(date.getDate());
+                    element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();
+                    break;
+                case 4:
+                    date.setDate(date.getDate() + 1);
+                    element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();
+                    break;
+                case 5:
+                    date.setDate(date.getDate() + 2);
+                    element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();;
+                    break;
+                case 6:
+                    date.setDate(date.getDate() + 3);
+                    element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();;
+                    break;
+
+            }
+
+            element.addEventListener('click', function(e){
+                console.log(e.target)
+            })
+        });
+    </script>
 {% endblock %}
