@@ -30,9 +30,23 @@ body {
     align-items: center;
 }
 
+.agendaHours {
+    height: 300px;
+    overflow: hidden;
+    .agendaHoursInside {
+        height: 250px;
+        overflow-y: scroll;
+        width: 100%;
+        padding-right: 17px;
+        box-sizing: content-box;
+    }
+}
 
 
-.dateBox, .month, .year, .agendaHours, .extraButtons {
+
+
+
+.dateBox, .month, .year, .extraButtons {
     border-radius: 10px;
     font-size: 1rem;
     line-height: 1;
