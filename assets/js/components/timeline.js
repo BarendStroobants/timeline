@@ -12,6 +12,7 @@ today.forEach(function(element){
             document.getElementById('target').innerText = "";
         }
         dayCounter = 0;
+        checker = false;
         setDate(dayCounter);
     });
 });
@@ -21,13 +22,16 @@ arrows.forEach(function(element, i){
         switch (i) {
             case 0:
                 dayCounter--;
+                checker = false;
                 setDate(dayCounter);
                 if (document.getElementById('target')) {
                     document.getElementById('target').innerText = "";
                 }
+
                 break;
             case 1:
                 dayCounter++;
+                checker = false;
                 setDate(dayCounter);
                 if (document.getElementById('target')) {
                     document.getElementById('target').innerText = "";
@@ -38,17 +42,24 @@ arrows.forEach(function(element, i){
         }
     });
 });
-
+let checker = false;
 dates.forEach(function(element, i){
     element.addEventListener('click', function(e){
+        if (checker === true) {
+            dates.forEach(function(element) {
+            element.removeChild(element.children[1]);
+            });
+            checker = false;
+        }
+        console.log(checker);
         dates.forEach(function(element){
-            if (document.querySelectorAll('.agendaHours')) {
-                document.querySelectorAll('.agendaHours').innerText = "";
-            }
+            console.log(element.children[1]);
             let template = document.querySelector('#expandedDates');
             let clone = template.content.cloneNode(true);
             element.appendChild(clone);
+
         });
+        checker = true;
 
 
 
