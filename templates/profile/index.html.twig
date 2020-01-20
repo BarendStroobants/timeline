@@ -6,8 +6,22 @@
     <div class="container">
         <h1 class="col-12 text-center my-5">Timeline</h1>
         <main>
-            <section class="row dateContainer">
-                <div class="today col-1 mx-auto rounded text-center btn">Today</div>
+            <section class="row dateContainer d-flex justfy-content-around">
+                <div class="col-3">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-4 text-right">&#8612;</div>
+                        <div id="month" class="month py-1 px-2 col-4 mx-auto"></div>
+                        <div class="col-4">&#8614;</div>
+                    </div>
+                </div>
+                <div class="today col-3 rounded text-center btn">Today</div>
+                <div class="col-3">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-4 text-right">&#8612;</div>
+                        <div id="year" class="year col-4 py-1 px-2 col-1 col-1 mx-auto"></div>
+                        <div class="col-4">&#8614;</div>
+                    </div>
+                </div>
             </section>
             <section class="row dateContainer">
                 <div class="col-1 text-right arrows">&#8612;</div>
@@ -93,10 +107,16 @@
                     case 0:
                         dayCounter--;
                         setDate(dayCounter);
+                        if (document.getElementById('target')) {
+                            document.getElementById('target').innerText = "";
+                        }
                         break;
                     case 1:
                         dayCounter++;
                         setDate(dayCounter);
+                        if (document.getElementById('target')) {
+                            document.getElementById('target').innerText = "";
+                        }
                         break;
                     default:
                         break;
@@ -116,7 +136,6 @@
                 let template = document.querySelector('#expandedDates');
                 let clone = template.content.cloneNode(true);
                 document.getElementById("target").appendChild(clone);
-                //add me now barend
                 let eventAdd = document.getElementById('eventAdd');
                 eventAdd.addEventListener('click', function(){
                     if (document.getElementById('eventForm')) {
@@ -133,8 +152,11 @@
 
         function setDate () {
             dates.forEach(function(element, index){
-                var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
                 let date = new Date();
+
+
                 date.setDate(date.getDate() + dayCounter);
                 switch (index) {
                     case 0:
@@ -143,7 +165,7 @@
                         break;
                     case 1:
                         date.setDate(date.getDate() - 2);
-                        element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();;
+                        element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();
                         break;
                     case 2:
                         date.setDate(date.getDate() - 1);
@@ -152,6 +174,8 @@
                     case 3:
                         date.setDate(date.getDate());
                         element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();
+                        document.getElementById('month').innerText = months[date.getMonth()];
+                        document.getElementById('year').innerText = date.getFullYear().toString();
                         break;
                     case 4:
                         date.setDate(date.getDate() + 1);
@@ -159,11 +183,11 @@
                         break;
                     case 5:
                         date.setDate(date.getDate() + 2);
-                        element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();;
+                        element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();
                         break;
                     case 6:
                         date.setDate(date.getDate() + 3);
-                        element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();;
+                        element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();
                         break;
                     default:
                         break;
