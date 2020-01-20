@@ -47,6 +47,47 @@ dates.forEach(function(element, i){
         let template = document.querySelector('#expandedDates');
         let clone = template.content.cloneNode(true);
         document.getElementById("target").appendChild(clone);
+        document.querySelectorAll(".dayBreakDownTitle").forEach(function(element, index) {
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            let date = new Date();
+            date.setDate(date.getDate() + dayCounter);
+            switch (index) {
+                case 0:
+                    date.setDate(date.getDate() - 3);
+                    element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();
+                    break;
+                case 1:
+                    date.setDate(date.getDate() - 2);
+                    element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();
+                    break;
+                case 2:
+                    date.setDate(date.getDate() - 1);
+                    element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();
+                    break;
+                case 3:
+                    date.setDate(date.getDate());
+                    element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();
+                    document.getElementById('month').innerText = months[date.getMonth()];
+                    document.getElementById('year').innerText = date.getFullYear().toString();
+                    break;
+                case 4:
+                    date.setDate(date.getDate() + 1);
+                    element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();
+                    break;
+                case 5:
+                    date.setDate(date.getDate() + 2);
+                    element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();
+                    break;
+                case 6:
+                    date.setDate(date.getDate() + 3);
+                    element.innerHTML = days[date.getDay()] + "<br>" + date.getDate();
+                    break;
+                default:
+                    break;
+            }
+        });
+
         let eventAdd = document.getElementById('eventAdd');
         eventAdd.addEventListener('click', function(){
             if (document.getElementById('eventForm')) {
@@ -60,6 +101,8 @@ dates.forEach(function(element, i){
 
     })
 });
+
+
 
 function setDate () {
     dates.forEach(function(element, index){

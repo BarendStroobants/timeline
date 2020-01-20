@@ -18,7 +18,7 @@
                 </div>
             </div>
         </section>
-        <section class="row-fluid dateContainer">
+        <section class="row dateContainer">
             <div class="col-1 text-right arrows">&#8612;</div>
             <div class="dateBox col-1 py-2 text-center">-3</div>
             <div class="dateBox col-1 py-2 text-center">-2</div>
@@ -29,8 +29,7 @@
             <div class="dateBox col-1 py-2 text-center">+3</div>
             <div class="col-1 arrows">&#8614;</div>
         </section>
-        <div class="dateContainer row-fluid d-flex justify-content-start" id="target">
-
+        <div class="dateContainer row" id="target">
         </div>
     </main>
 </div>
@@ -43,28 +42,32 @@
 </template>
 <template id="expandedDates">
     {% for i in 0..6 %}
-            <section class="dateContainer py-5 d-flex flex-column justify-content-center col-1">
-                <div class="col-1 text-center">0:00</div>
-                <div class="col-1 text-center">1:00</div>
-                <div class="col-1 text-center">2:00</div>
-                <div class="col-1 text-center">3:00</div>
-                <div class="col-1 text-center">4:00</div>
-                <div class="col-1 text-center">5:00</div>
-                <div class="col-1 text-center">6:00</div>
+        <div class="agendaHours">
+            <h3 id="date{{ i }}" class="dayBreakDownTitle text-center">Date</h3>
+            <section class="my-5 d-flex flex-column">
+                <div class="">0:00</div>
+                <div class="">DATA</div>
+                <div class="">1:00</div>
+                <div class="">DATA</div>
+                <div class="">2:00</div>
+                <div class="">DATA</div>
+                <div class="">3:00</div>
+                <div class="">DATA</div>
+                <div class="">4:00</div>
+                <div class="">DATA</div>
+                <div class="">5:00</div>
+                <div class="">DATA</div>
+                <div class="">6:00</div>
+                <div class="">DATA</div>
             </section>
-        <section class="dateContainer py-5 d-flex flex-column justify-content-center col-1">
-            <div class="col-1 text-center">DATA</div>
-            <div class="col-1 text-center">DATA</div>
-            <div class="col-1 text-center">DATA</div>
-            <div class="col-1 text-center">DATA</div>
-            <div class="col-1 text-center">DATA</div>
-            <div class="col-1 text-center">DATA</div>
-            <div class="col-1 text-center">DATA</div>
-        </section>
+            <div id="nextHours" class="btn btn-lg btn-primary extraButtons">Show More</div>
+            <section class="text-center">
+                <div id="eventAdd" class="btn btn-lg btn-primary extraButtons">Event Add</div>
+                <div id="eventAddTarget"></div>
+            </section>
+        </div>
+
     {% endfor %}
-  <!--  <section class="text-center">
-        <div id="eventAdd" class="btn btn-lg btn-primary">Event Add</div>
-        <div id="eventAddTarget"></div>
-    </section> -->
+
 </template>
 
