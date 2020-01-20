@@ -1,0 +1,57 @@
+@import "~bootstrap/scss/bootstrap";
+@import "partials/variables";
+
+
+body {
+    background-color: darkgrey;
+    width: 100vw;
+    height: 100vh;
+}
+
+.today {
+    width: 100px;
+    background: #e2f0ef;
+    border: 3px solid #51aaa3;
+    color:  #51aaa3;
+}
+
+.today:hover {
+    border: 3px solid yellow;
+}
+
+.dateContainer {
+    background-color: darkslategrey;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.dateBox, .month, .year {
+    border-radius: 10px;
+    font-size: 1rem;
+    line-height: 1;
+    text-align: center;
+    width: 3rem;
+    background: #e2f0ef;
+    border: 3px solid #51aaa3;
+    color: #51aaa3;
+    margin: 0.375rem;
+    flex-grow: 1;
+}
+
+.dateBox:hover {
+    border: 3px solid #aa6956;
+    transform: scale(1.1);
+}
+
+.arrows {
+    font-size: 3em;
+    color: whitesmoke;
+}
+
+.arrows:hover {
+    font-size: 3em;
+    text-shadow: 0 0 4px yellow;
+}
