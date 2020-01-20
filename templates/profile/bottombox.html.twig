@@ -4,8 +4,18 @@
             <button class="bottomboxbutton">events</button>
         </div>
         <div class="col-8 d-flex justify-content-around">
-            <button class="bottomboxbutton">view</button>
-            <button class="bottomboxbutton">edit</button>
+            <div id="nextHours" class="bottomboxbutton">Show More</div>
+            <section class="text-center">
+                <div id="eventAdd" class="bottomboxbutton">Event Add</div>
+                <div id="eventAddTarget"></div>
+            </section>
         </div>
     </section>
 </main>
+<template id="eventForm">
+    <section>
+        {{ form_start(form) }}
+        <button type="submit">Post Event</button>
+        {{ form_end(form) }}
+    </section>
+</template>

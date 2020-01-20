@@ -33,13 +33,6 @@
         </div>
     </main>
 </div>
-<template id="eventForm">
-    <section>
-        {{ form_start(form) }}
-        <button type="submit">Post Event</button>
-        {{ form_end(form) }}
-    </section>
-</template>
 <template id="expandedDates">
     {% for i in 0..6 %}
         <div class="agendaHours">
@@ -59,11 +52,6 @@
                 <div class="">DATA</div>
                 <div class="">6:00</div>
                 <div class="">DATA</div>
-            </section>
-            <div id="nextHours" class="btn btn-lg btn-primary extraButtons">Show More</div>
-            <section class="text-center">
-                <div id="eventAdd" class="btn btn-lg btn-primary extraButtons">Event Add</div>
-                <div id="eventAddTarget"></div>
             </section>
         </div>
 
