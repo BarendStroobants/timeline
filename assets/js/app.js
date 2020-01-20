@@ -10,6 +10,7 @@ import '../scss/app.scss';
 
 import './components/timeline.js'
 import 'bootstrap'
+import './components/_bottombox'
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 // import $ from 'jquery';
 
