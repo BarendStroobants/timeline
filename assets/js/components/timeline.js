@@ -88,20 +88,21 @@ dates.forEach(function(element, i){
             }
         });
 
-        let eventAdd = document.getElementById('eventAdd');
-        eventAdd.addEventListener('click', function(){
-            if (document.getElementById('eventForm')) {
-                document.getElementById('eventAddTarget').innerHTML = "";
-            }
-            const temp = document.getElementById('eventForm');
-            let clone = temp.content.cloneNode(true);
-            document.getElementById('eventAddTarget').appendChild(clone);
-        });
 
 
     })
 });
 
+let eventAdd = document.getElementById('eventAdd');
+eventAdd.addEventListener('click', function(){
+    if (document.getElementById('eventForm')) {
+        document.getElementById('eventAddTarget').innerHTML = "";
+    }
+    console.log("test");
+    const temp = document.getElementById('eventForm');
+    let clone = temp.content.cloneNode(true);
+    document.getElementById('eventAddTarget').appendChild(clone);
+});
 
 
 function setDate () {
