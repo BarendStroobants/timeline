@@ -44,10 +44,6 @@ dates.forEach(function(element, i){
         if (document.getElementById('target')) {
             document.getElementById('target').innerText = "";
         }
-        let currentDate = document.getElementById('currentDate');
-        let clonedDate = currentDate.content.cloneNode(true);
-        document.getElementById("target").appendChild(clonedDate);
-        document.getElementById("currentDateInside").innerHTML = dates[i].innerHTML;
         let template = document.querySelector('#expandedDates');
         let clone = template.content.cloneNode(true);
         document.getElementById("target").appendChild(clone);
