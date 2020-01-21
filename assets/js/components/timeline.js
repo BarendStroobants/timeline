@@ -8,8 +8,7 @@ const today = document.querySelectorAll(".today");
 
 setDate(dayCounter);
 
-today.forEach(function(element){
-    element.addEventListener('click', function (e){
+today[0].addEventListener('click', function (e){
         currentDates = [];
             document.querySelectorAll('.targetGraph').forEach(function(element){
                 element.innerText = "";
@@ -17,9 +16,7 @@ today.forEach(function(element){
         dayCounter = 0;
         checker = false;
         setDate(dayCounter);
-
     });
-});
 
 arrows.forEach(function(element, i){
     element.addEventListener('click', function(e) {
@@ -28,20 +25,15 @@ arrows.forEach(function(element, i){
             case 0:
                 dayCounter--;
                 checker = false;
-
                 setDate(dayCounter);
-
-
-
                 break;
+
             case 1:
                 dayCounter++;
                 checker = false;
-
                 setDate(dayCounter);
-
-
                 break;
+
             default:
                 break;
         }
@@ -56,19 +48,16 @@ dates.forEach(function(element, i){
         });
 
         dates.forEach(function(element){
-
             currentDates.push(element.innerText);
-
-
-
             let template = document.querySelector('#expandedDates');
             let clone = template.content.cloneNode(true);
             element.appendChild(clone);
-            console.log("hallo");
         });
+
         setDates(currentDates);
         checker = true;
         currentDates.forEach(function(dateElement){
+            //MAKE INTO FUNCTION
             for(let i = 0; i < 1440; i++) {
                 let box = document.getElementById('1840');
                 console.log(box);
@@ -108,51 +97,46 @@ function setDate () {
             case 0:
                 date.setDate(date.getDate() - 3);
                 document.querySelectorAll('.dateNumber')[index].innerText = date.getDate();
-
-             //   element.innerText = days[date.getDay()] + "<br>" + date.getDate();
                 break;
+
             case 1:
                 date.setDate(date.getDate() - 2);
                 document.querySelectorAll('.dateNumber')[index].innerText = date.getDate();
-              //  element.innerText = days[date.getDay()] + "<br>" + date.getDate();
                 break;
+
             case 2:
                 date.setDate(date.getDate() - 1);
                 document.querySelectorAll('.dateNumber')[index].innerText = date.getDate();
-             //  element.innerText = days[date.getDay()] + "<br>" + date.getDate();;
                 break;
+
             case 3:
                 date.setDate(date.getDate());
-
                 document.querySelectorAll('.dateNumber')[index].innerText = date.getDate();
-             //   element.innerText = days[date.getDay()] + "<br>" + date.getDate();
                 document.getElementById('month').innerText = months[date.getMonth()];
                 document.getElementById('year').innerText = date.getFullYear().toString();
                 break;
+
             case 4:
                 date.setDate(date.getDate() + 1);
                 document.querySelectorAll('.dateNumber')[index].innerText = date.getDate();
-             //   element.innerText = days[date.getDay()] + "<br>" + date.getDate();
                 break;
+
             case 5:
                 date.setDate(date.getDate() + 2);
                 document.querySelectorAll('.dateNumber')[index].innerText = date.getDate();
-              //  element.innerText = days[date.getDay()] + "<br>" + date.getDate();
                 break;
+
             case 6:
                 date.setDate(date.getDate() + 3);
                 document.querySelectorAll('.dateNumber')[index].innerText = date.getDate();
-            //    element.innerText = days[date.getDay()] + "<br>" + date.getDate();
                 break;
+
             default:
                 break;
         }
 
         currentDates[index] = element.innerText;
-        console.log(currentDates);
     });
-
-
 }
 
 function setDates (dateNumber) {
@@ -167,9 +151,8 @@ function setDates (dateNumber) {
             minuteCounter = 0;
             currentIndex++;
         }
+
         element.id = currentDates[currentIndex] + minuteCounter.toString();
         minuteCounter++;
     });
 }
-
-
