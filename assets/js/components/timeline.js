@@ -60,7 +60,6 @@ dates.forEach(function(element, i){
             //MAKE INTO FUNCTION
             for(let i = 0; i < 1440; i++) {
                 let box = document.getElementById('1840');
-                console.log(box);
                 box.classList.add("sleep");
             }
         });
