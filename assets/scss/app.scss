@@ -50,9 +50,6 @@ body {
 .paddingZero {
     visibility: hidden;
 }
-.sleep {
-    background: blue;
-}
 
 
     .minutes {
@@ -95,4 +92,24 @@ body {
 .arrows:hover {
     font-size: 3em;
     text-shadow: 0 0 4px yellow;
+}
+
+.sleep {
+    background: blue;
+}
+
+.hobby {
+    background: purple;
+}
+
+.work {
+    background: chocolate;
+}
+
+.travel {
+    background: green;
+}
+
+.rest {
+    background: yellow;
 }

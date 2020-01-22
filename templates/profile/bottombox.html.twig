@@ -38,47 +38,5 @@
     </section>
 </template>
 <script>
-
     let dateArray = {{ events|json_encode|raw }};
-
-    let today = new Date();
-    today.setDate(today.getDate() + 2);
-    console.log(today);
-    console.log(today.getFullYear());
-    console.log(1+ today.getMonth());
-    console.log(today.getDate());
-    console.log(today.getFullYear()+'-'+today.getMonth()+1+'-'+today.getDate());
-    console.log(dateArray.start.date.substring(0, 11));
-    let todayFormatted = today.getFullYear()+'-'+today.getMonth()+1+'-'+today.getDate();
-    console.log(todayFormatted);
-    let targetDate = dateArray.start.date.substring(0,11);
-
-    if (todayFormatted == todayFormatted) {
-        console.log("I am true")
-    }
-    ///console.log("I am false");
-    let eventsButton = document.getElementById('showNextEvents');
-    eventsButton.addEventListener('click', function(e){
-
-            let template = document.getElementById('eventMaker');
-            let clone = template.content.cloneNode(true);
-            document.getElementById('showEvents').appendChild(clone);
-            document.getElementById('eventNumber').innerText = 'Event' + 0;
-            document.getElementById('eventDescription').innerText = dateArray.description;
-            document.getElementById('activity').innerText = dateArray.activity;
-            document.getElementById('start').innerText = dateArray.start.date;
-            document.getElementById('end').innerText = dateArray.end.date;
-
-
-
-        });
-        console.log("I am here");
-    });
-
-
-
-
-
-  //  console.log('CurrentTimeInMinutes '+firstDay);
-
 </script>
