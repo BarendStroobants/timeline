@@ -20,13 +20,29 @@
 </main>
 
 <template id="eventMaker">
+    {% for event in getEvents %}
     <article>
-        <div id="eventNumber"></div>
-        <div id="eventDescription"></div>
-        <div id="activity"></div>
-        <div id="start"></div>
-        <div id="end"></div>
+        <div id="eventNumber">
+            {{ event.id }}
+        </div>
+
+        <div id="eventDescription">
+            {{ event.description }}
+        </div>
+
+        <div id="activity">
+            {{ event.activity }}
+        </div>
+
+        <div id="start">
+            {{ event.start|date("d/m/y") }}
+        </div>
+
+        <div id="end">
+            {{ event.stop|date("d/m/y") }}
+        </div>
     </article>
+    {% endfor %}
 </template>
 
 <template id="eventForm">

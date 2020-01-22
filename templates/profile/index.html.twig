@@ -3,6 +3,7 @@
 {% block title %}Timeline{% endblock %}
 
 {% block body %}
+    {{ dump(getEvents) }}
     {% include("profile/timeline.html.twig") %}
     {% include("profile/bottombox.html.twig") %}
     {% block javascripts %}

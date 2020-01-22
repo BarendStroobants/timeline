@@ -19,6 +19,10 @@ class ProfileController extends AbstractController
      */
     public function index(Request $request)
     {
+        $getEvents = $this->getDoctrine()->getRepository(Event::class)->findBy([
+            'person' => $this->getUser(),
+        ]);
+
         $analyer = new Analyzer();
 
         $date = new \DateTime();
@@ -26,20 +30,6 @@ class ProfileController extends AbstractController
         $dateStart = $date->format('d');
         $dateEnd = new \DateTime();
         $analyerArray = $analyer->minuteGetter($date, $dateEnd);
-       // var_dump($analyerArray);
-
-      //  var_dump($analyerArray["end"]); //-strtotime($analyer["start"]));
-
-      //  $dateDiff = $analyerArray['start']->diff($analyerArray['end']);
-
-     //  $minutes = intval($dateDiff->format('%i'));
-     //   $hours = intval($dateDiff->format('%h'));
-       // $totalMinutes = ($hours * 60) + $minutes;
-
-
-        // var_dump($totalMinutes);
-
-
 
         $form = $this->createForm(EventMakerType::class);
         $event = new Event();
@@ -59,7 +49,7 @@ class ProfileController extends AbstractController
         return $this->render('profile/index.html.twig', [
             'form' => $form->createView(),
             'events' => $analyerArray,
-
+            'getEvents' => $getEvents,
         ]);
     }
 }

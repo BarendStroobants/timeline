@@ -18,12 +18,12 @@ class EventMakerType extends AbstractType
             ->add('stop')
             ->add('activity', ChoiceType::class, [
                 'choices' => [
-                    'sleep' => 'string',
-                    'work' => 'string',
-                    'travel' => 'string',
-                    'study' => 'string',
-                    'eat' => 'string',
-                    'hobby' => 'string',
+                    'sleep' => 'sleep',
+                    'work' => 'work',
+                    'travel' => 'travel',
+                    'study' => 'study',
+                    'eat' => 'eat',
+                    'hobby' => 'hobby',
                 ]
             ])
             ->add('location')
