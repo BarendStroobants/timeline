@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Event;
 use App\Form\EventMakerType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Util\Analyzer;
 
@@ -12,7 +14,7 @@ class ProfileController extends AbstractController
     /**
      * @Route("/profile", name="profile")
      */
-    public function index()
+    public function index(Request $request)
     {
         $analyer = new Analyzer();
 
@@ -37,6 +39,18 @@ class ProfileController extends AbstractController
 
 
         $form = $this->createForm(EventMakerType::class);
+        $event = new Event();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+           $event = $form->getData();
+           $em = $this->getDoctrine()->getManager();
+           $em->persist($event);
+           $em->flush();
+
+           return $this->redirectToRoute('profile');
+        }
 
         return $this->render('profile/index.html.twig', [
             'form' => $form->createView(),
