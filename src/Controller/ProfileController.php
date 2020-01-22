@@ -7,14 +7,17 @@ use App\Form\EventMakerType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Util\Analyzer;
+use App\Util\Analyzer;
 
 class ProfileController extends AbstractController
 {
     /**
      * @Route("/profile", name="profile")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
-    public function index(Request $request)
+    public function index(\Symfony\Component\HttpFoundation\Request $request)
     {
         $analyer = new Analyzer();
 

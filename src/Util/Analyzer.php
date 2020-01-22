@@ -1,6 +1,6 @@
 <?php
 
-namespace Util;
+namespace App\Util;
 
 use DateTime;
 use DateTimeImmutable;
