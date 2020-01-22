@@ -1,7 +1,7 @@
 let dayCounter = 0;
 let checker = false;
 let currentDates = [];
-let totalArray = [23, 2, 3, 4, 5, 6, 7, 8];
+let totalArray = [19, 20, 21];
 
 const dates = document.querySelectorAll(".dateBox");
 const arrows = document.querySelectorAll(".arrows");
@@ -17,6 +17,7 @@ today[0].addEventListener('click', function (e){
         dayCounter = 0;
         checker = false;
         setDate(dayCounter);
+
     });
 
 arrows.forEach(function(element, i){
@@ -30,14 +31,18 @@ arrows.forEach(function(element, i){
                 dayCounter--;
                 checker = true;
                 setDate(dayCounter);
-                break;
 
+                console.log(currentDates);
+                console.log(totalArray);
+                break;
             case 1:
                 dayCounter++;
                 checker = true;
                 setDate(dayCounter);
-                break;
 
+                console.log(currentDates);
+                console.log(totalArray);
+                break;
             default:
                 break;
         }
@@ -60,7 +65,7 @@ dates.forEach(function(element, i){
 
         setDates(currentDates);
         checker = true;
-        setBoxes(currentDates, totalArray);
+        setBoxes(currentDates, motherfile);
 
 
 
@@ -141,7 +146,7 @@ function setDate () {
                 break;
         }
 
-        currentDates[index] = element.innerText;
+        currentDates[index] = parseInt(element.innerText);
 
     });
 }
@@ -163,113 +168,38 @@ function setDates (dateNumber) {
     });
 }
 
-function setBoxes (currentlyDisplayedDates, totalArray) {
-    totalArray.forEach(function(element, index){
-        for(let i = 0; i < 1440; i++)  {
-            console.log('total arrray element is' +element);
-            console.log('currentDate[0] is '+currentlyDisplayedDates[0]);
-            if (element === currentlyDisplayedDates[0]) {
-                if (i >= 0 && i < 40) {
-                    console.log('element is '+ element);
-                    console.log('i is '+ i);
-                    let box = document.getElementById(element+i);
-                    box.classList.add("travel");
+function setBoxes (currentlyDisplayedDates, motherfile) {
+     currentlyDisplayedDates.forEach(function(ele, index){
+         currentlyDisplayedDates[index] = parseInt(ele);
+
+     });
+
+    for (let i = 0; i < 32; i++) {
+        if (motherfile[i] !== undefined) {
+            motherfile[i].forEach(function(element){
+                for (let box = 0; box < 1440; box++){
+                if (parseInt(element.date) === currentlyDisplayedDates[2]) {
+                    console.log("I get through date display test");
+                    console.log(element);
+                    if(box >= element.startRelative && box < (element.endRelative)){
+                        let banana = element['date'];
+                        console.log(banana);
+                        let muffin = box.toString();
+                        console.log(muffin);
+                        let bananaMuffin = banana+muffin;
+                        console.log('this is banamuf '+bananaMuffin);
+                        document.getElementById(bananaMuffin).classList.add("sleep");
+                    }}
                 }
-                if (i >= 40 && i < 400) {
-                    let box = document.getElementById(element+i);
-                    box.classList.add("sleep");
-                }
-                if (i >= 400 && i < 460) {
-                    let box = document.getElementById(element+i);
-                    box.classList.add("travel");
-                }
-                if (i >= 460 && i < 700) {
-                    let box = document.getElementById(element+i);
-                    box.classList.add("work");
-                }
-            }
-            if (element == currentlyDisplayedDates[1]) {
-                if (i >= 0 && i < 560) {
-                    let box = document.getElementById(element+i);
-                    box.classList.add("sleep");
-                }
-                if (i >= 560 && i < 600) {
-                    let box = document.getElementById(element+i);
-                    box.classList.add("travel");
-                }
-                if (i >= 600 && i < 1350) {
-                    let box = document.getElementById(element+i);
-                    box.classList.add("work");
-                }
-            }
-            if (element == currentlyDisplayedDates[2]) {
-                if (i >= 0 && i < 450) {
-                    let box = document.getElementById(element+i);
-                    box.classList.add("work");
-                }
-                if (i >= 450 && i < 1060) {
-                    let box = document.getElementById(element+i);
-                    box.classList.add("sleep");
-                }
-            }
-            if (element == currentlyDisplayedDates[3]) {
-                if (i >= 0 && i < 70) {
-                    let box = document.getElementById(element+i);
-                    box.classList.add("hobby");
-                }
-                if (i >= 70 && i < 360) {
-                    let box = document.getElementById(element+i);
-                    box.classList.add("sleep");
-                }
-                if (i >= 360 && i < 700) {
-                    let box = document.getElementById(element+i);
-                    box.classList.add("hobby");
-                }
-            }
-            if (element == currentlyDisplayedDates[4]) {
-                if (i >= 0 && i < 10) {
-                    let box = document.getElementById(element+i);
-                    box.classList.add("rest");
-                }
-                if (i >= 10 && i < 260) {
-                    let box = document.getElementById(element+i);
-                    box.classList.add("sleep");
-                }
-                if (i >= 260 && i < 500) {
-                    let box = document.getElementById(element+i);
-                    box.classList.add("work");
-                }
-            }
-            if (element == currentlyDisplayedDates[5]) {
-                if (i >= 0 && i < 300) {
-                    let box = document.getElementById(element+i);
-                    box.classList.add("work");
-                }
-                if (i >= 300 && i < 400) {
-                    let box = document.getElementById(element+i);
-                    box.classList.add("work");
-                }
-                if (i >= 400 && i < 1230) {
-                    let box = document.getElementById(element+i);
-                    box.classList.add("sleep");
-                }
-            }
-            if (element == currentlyDisplayedDates[6]) {
-                if (i >= 0 && i < 230) {
-                    let box = document.getElementById(element+i);
-                    box.classList.add("hobby");
-                }
-                if (i >= 230 && i < 500) {
-                    let box = document.getElementById(element+i);
-                    box.classList.add("travel");
-                }
-                if (i >= 600 && i < 960) {
-                    let box = document.getElementById(element+i);
-                    box.classList.add("sleep");
-                }
-            }
+            });
+
         }
-    });
+
+
+    }
+
+
+
 }
 
 
@@ -289,3 +219,4 @@ function setBoxes (currentlyDisplayedDates, totalArray) {
       console.log("I am true")
   }
   ///console.log("I am false"); */
+

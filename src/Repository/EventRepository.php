@@ -61,8 +61,9 @@ class EventRepository extends ServiceEntityRepository
         foreach ($events as $key => $event){
             $info = $anal->minuteGetter($event->getStart(), $event->getStop());
 
-            $minuteArray[$key] = $info;
-            $minuteArray[$key]['activity'] = $event->getActivity();
+            $minuteArray[$event->getStart()->format('d')][0] = $info;
+            $minuteArray[$event->getStart()->format('d')][0]['activity'] = $event->getActivity();
+            $minuteArray[$event->getStart()->format('d')][0]['date'] = $event->getStart()->format('d');
         }
 
         return $minuteArray;

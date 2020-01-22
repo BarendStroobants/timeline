@@ -43,8 +43,11 @@ class Analyzer
         $ele = $hours * 60;
         $startRelative = $ele + $mins;
 
+        $endRelative = $startRelative + $totalMinutes;
+
         $dataArray = [
             'startRelative' => $startRelative,
+            'endRelative' => $endRelative,
             'totalMinutes' => $totalMinutes,
 
         ];
