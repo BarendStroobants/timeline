@@ -25,45 +25,29 @@ class Analyzer
     public function minuteGetter(\DateTime $dateStart, \DateTime $dateEnd): array
     {
 
-
-
-        $totalMinsOfDay = 1440;
-
-        $dateStart->setDate(2020,1, 21);
-        $start = $dateStart->setTime(9, 30, 00);
-        $eventStart = (intval($dateStart->format("h"))*60);
-        $eventStart += intval($dateStart->format('i'));
-
-        $dateEnd->setDate(2020,1, 21);
-        $end = $dateEnd->setTime(9, 30, 00);
+        //define('TOTALMINUTESINDAY', 1440);
 
         $dateDiff = $dateStart->diff($dateEnd);
-
-
-
         $minutes = intval($dateDiff->format('%i'));
         $hours = intval($dateDiff->format('%h'));
         $totalMinutes = ($hours * 60) + $minutes;
+        $date = new DateTime();
+        $date->setDate($dateStart->format('Y'), $dateStart->format('m'), $dateStart->format('d'));
+        $date->setTime(0, 0, 0);
 
 
+        $startRelative = $date->diff($dateStart);
+        $hours = $startRelative->format('%h');
+        $mins = $startRelative->format('%i');
 
-
-
-
-
-
-
+        $ele = $hours * 60;
+        $startRelative = $ele + $mins;
 
         $dataArray = [
-            'start' => $start,
-            'end' => $end,
-            'activity' => 'sleep',
-            'location' => 'home',
-            'description' => 'resting my eyes',
+            'startRelative' => $startRelative,
             'totalMinutes' => $totalMinutes,
-          //  'value' => $value
-            'eventStart' => $eventStart,
-            ];
+
+        ];
 
         return $dataArray;
     }

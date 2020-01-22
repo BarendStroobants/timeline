@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Event;
+use App\Entity\Person;
+use App\Util\Analyzer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -47,4 +49,22 @@ class EventRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getUsefulDataArray (Person $person) {
+        $events = $this->findBy([
+            'person' => $person,
+        ]);
+
+        $anal = new Analyzer();
+
+        $minuteArray = [];
+        foreach ($events as $key => $event){
+            $info = $anal->minuteGetter($event->getStart(), $event->getStop());
+
+            $minuteArray[$key] = $info;
+            $minuteArray[$key]['activity'] = $event->getActivity();
+        }
+
+        return $minuteArray;
+    }
 }

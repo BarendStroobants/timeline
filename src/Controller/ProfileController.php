@@ -23,6 +23,8 @@ class ProfileController extends AbstractController
             'person' => $this->getUser(),
         ]);
 
+        $getEvents2 = $this->getDoctrine()->getRepository(Event::class)->getUsefulDataArray($this->getUser());
+
         $analyer = new Analyzer();
 
         $date = new \DateTime();
@@ -50,6 +52,7 @@ class ProfileController extends AbstractController
             'form' => $form->createView(),
             'events' => $analyerArray,
             'getEvents' => $getEvents,
+            'getEvents2' => $getEvents2
         ]);
     }
 }
