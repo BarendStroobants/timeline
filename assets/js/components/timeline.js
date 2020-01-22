@@ -64,7 +64,7 @@ dates.forEach(function(element, i){
 
 
     })
-});profile
+});
 
 let eventsButton = document.getElementById('showNextEvents');
 eventsButton.addEventListener('click', function(e){
