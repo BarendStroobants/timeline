@@ -65,7 +65,7 @@ dates.forEach(function(element, i){
         });
 
     })
-});
+});profile
 
 let eventAdd = document.getElementById('eventAdd');
 eventAdd.addEventListener('click', function(){
