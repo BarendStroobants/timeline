@@ -8,8 +8,7 @@ const today = document.querySelectorAll(".today");
 
 setDate(dayCounter);
 
-today.forEach(function(element){
-    element.addEventListener('click', function (e){
+today[0].addEventListener('click', function (e){
         currentDates = [];
             document.querySelectorAll('.targetGraph').forEach(function(element){
                 element.innerText = "";
@@ -17,9 +16,7 @@ today.forEach(function(element){
         dayCounter = 0;
         checker = false;
         setDate(dayCounter);
-
     });
-});
 
 arrows.forEach(function(element, i){
     element.addEventListener('click', function(e) {
@@ -33,11 +30,13 @@ arrows.forEach(function(element, i){
                 checker = true;
                 setDate(dayCounter);
                 break;
+
             case 1:
                 dayCounter++;
                 checker = true;
                 setDate(dayCounter);
                 break;
+
             default:
                 break;
         }
@@ -104,32 +103,39 @@ function setDate () {
                 date.setDate(date.getDate() - 3);
                 document.querySelectorAll('.dateNumber')[index].innerText = date.getDate();
                 break;
+
             case 1:
                 date.setDate(date.getDate() - 2);
                 document.querySelectorAll('.dateNumber')[index].innerText = date.getDate();
                 break;
+
             case 2:
                 date.setDate(date.getDate() - 1);
                 document.querySelectorAll('.dateNumber')[index].innerText = date.getDate();
                 break;
+
             case 3:
                 date.setDate(date.getDate());
                 document.querySelectorAll('.dateNumber')[index].innerText = date.getDate();
                 document.getElementById('month').innerText = months[date.getMonth()];
                 document.getElementById('year').innerText = date.getFullYear().toString();
                 break;
+
             case 4:
                 date.setDate(date.getDate() + 1);
                 document.querySelectorAll('.dateNumber')[index].innerText = date.getDate();
                 break;
+
             case 5:
                 date.setDate(date.getDate() + 2);
                 document.querySelectorAll('.dateNumber')[index].innerText = date.getDate();
                 break;
+
             case 6:
                 date.setDate(date.getDate() + 3);
                 document.querySelectorAll('.dateNumber')[index].innerText = date.getDate();
                 break;
+
             default:
                 break;
         }
@@ -137,8 +143,6 @@ function setDate () {
         currentDates[index] = element.innerText;
 
     });
-
-
 }
 
 function setDates (dateNumber) {
@@ -152,6 +156,7 @@ function setDates (dateNumber) {
             minuteCounter = 0;
             currentIndex++;
         }
+
         element.id = currentDates[currentIndex] + minuteCounter.toString();
         minuteCounter++;
     });
