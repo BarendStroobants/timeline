@@ -95,27 +95,23 @@ body {
 }
 
 .sleep {
-    background: blue;
+    background: hsla(0, 100%, 50%, 1);
 }
 
 .hobby {
-    background: purple;
+    background: hsla(50, 100%, 50%, 1);
 }
 
 .work {
-    background: chocolate;
+    background: hsla(180, 100%, 50%, 1);
 }
 
 .travel {
-    background: green;
-}
-
-.rest {
-    background: yellow;
+    background: hsla(300, 100%, 50%, 1);
 }
 
 .study {
-    background: red;
+    background: hsla(245, 100%, 50%, 1);
 }
 
 .default {
@@ -123,5 +119,5 @@ body {
 }
 
 .eat {
-    background: green;
+    background: hsla(125, 100%, 50%, 1);
 }
