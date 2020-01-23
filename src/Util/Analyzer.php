@@ -9,7 +9,7 @@ use PhpParser\Node\Expr\Array_;
 
 class Analyzer
 {
-
+    //define('TOTALMINUTESINDAY', 1440);
     /**
      * Analyzer constructor.
      */
@@ -25,10 +25,10 @@ class Analyzer
     public function minuteGetter(\DateTime $dateStart, \DateTime $dateEnd): array
     {
 
-        //define('TOTALMINUTESINDAY', 1440);
+
 
         $dateDiff = $dateStart->diff($dateEnd);
-        var_dump($dateDiff);
+
         $minutes = intval($dateDiff->format('%i'));
         $hours = intval($dateDiff->format('%h'));
         $totalMinutes = ($hours * 60) + $minutes;
