@@ -50,19 +50,29 @@ class EventRepository extends ServiceEntityRepository
     }
     */
 
-    public function getUsefulDataArray (Person $person, Analyzer $analyzer) {
+    public function getUsefulDataArray (Person $person) {
         $events = $this->findBy([
             'person' => $person,
         ]);
 
+        $anal = new Analyzer();
 
         $minuteArray = [];
+        $counter = 0;
         foreach ($events as $key => $event){
-            $info = $analyzer->minuteGetter($event->getStart(), $event->getStop());
 
-            $minuteArray[$event->getStart()->format('d')][0] = $info;
-            $minuteArray[$event->getStart()->format('d')][0]['activity'] = $event->getActivity();
-            $minuteArray[$event->getStart()->format('d')][0]['date'] = $event->getStart()->format('d');
+
+            if ($event->getStart()->format('d') === $event->getStop()->format('d')) {
+                $info = $anal->minuteGetter($event->getStart(), $event->getStop());
+                $minuteArray[$event->getStart()->format('d')][$counter] = $info;
+                $minuteArray[$event->getStart()->format('d')][$counter]['activity'] = $event->getActivity();
+                $minuteArray[$event->getStart()->format('d')][$counter]['date'] = $event->getStart()->format('d');
+                $counter++;
+
+            } else {
+                $counter = 0;
+            }
+
         }
 
         return $minuteArray;
