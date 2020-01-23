@@ -97,7 +97,7 @@ let homemadeDateObject = {'date': 0, 'month': 0, 'year': 0};
 let numberMonth = 0;
     dates.forEach(function (element, index) {
         const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        const reverter = {'January': 1, 'February': 2};
+
         let date = new Date();
         let year = date.getFullYear();
         date.setDate(date.getDate() + dayCounter);
@@ -192,33 +192,25 @@ function setDates(dateNumber) {
     });
 }
 
-let totals = {
-    sleep: 0,
-    hobby: 0,
-    study: 0
-};
+
 function setBoxes(motherfile) {
-    const TOTAL_MINUTES_IN_DAY = 1440;
     const currentSelectedDates = document.querySelectorAll('.dateNumber');
 
-    console.log(document.querySelectorAll('.dateNumber'));
-    console.log(motherfile);
     motherfile.forEach(function(userDateEvents) {
         currentSelectedDates.forEach(function(dateNumbersDisplayed){
                 if (userDateEvents.date === parseInt(dateNumbersDisplayed.getAttribute('data-day')) &&
                     userDateEvents.month === parseInt(dateNumbersDisplayed.getAttribute('data-month')) &&
                     userDateEvents.year === parseInt(dateNumbersDisplayed.getAttribute('data-year'))) {
-                    console.log("yes one 25");
-                    console.log(userDateEvents);
-                    for (let box = 0; box < TOTAL_MINUTES_IN_DAY; box++) {
-                            if (box >= userDateEvents.startRelative && box < (userDateEvents.endRelative)) {
+                    let box = userDateEvents.startRelative;
+                            while(box >= userDateEvents.startRelative && box < (userDateEvents.endRelative)) {
                                 let banana = userDateEvents['date'];
                                 let muffin = box.toString();
                                 let bananaMuffin = banana + muffin;
                                 document.getElementById(bananaMuffin).classList.add(userDateEvents.activity);
+                                box++;
                             }
 
-                    }
+
                 }
         });
 
