@@ -1,3 +1,5 @@
+import Chart from 'chart.js'
+
 let dayCounter = 0;
 let checker = false;
 let currentDates = [];
@@ -22,7 +24,6 @@ today[0].addEventListener('click', function (e) {
     dayCounter = 0;
     checker = false;
     setDate(dayCounter);
-
 });
 
 arrows.forEach(function (element, i) {
@@ -162,25 +163,71 @@ function setDates(dateNumber) {
 }
 
 function setBoxes(currentlyDisplayedDates, motherfile) {
+    const TOTAL_DAYS_MONTH = 32;
+    const TOTAL_MINUTES_IN_DAY = 1440;
     currentlyDisplayedDates.forEach(function (ele, index) {
         currentlyDisplayedDates[index] = parseInt(ele);
-
     });
 
-    for (let i = 0; i < 32; i++) {
+    for (let i = 1; i < TOTAL_DAYS_MONTH; i++) {
         if (motherfile[i] !== undefined) {
             motherfile[i].forEach(function (element) {
-                for (let box = 0; box < 1440; box++) {
-                    if (parseInt(element.date) === currentlyDisplayedDates[2]) {
-                        if (box >= element.startRelative && box < (element.endRelative)) {
-                            let banana = element['date'];
-                            let muffin = box.toString();
-                            let bananaMuffin = banana + muffin;
-                            document.getElementById(bananaMuffin).classList.add("sleep");
+                currentlyDisplayedDates.forEach(function(dateElement){
+                    for (let box = 0; box < TOTAL_MINUTES_IN_DAY; box++) {
+                        if (parseInt(element.date) === dateElement) {
+                            if (box >= element.startRelative && box < (element.endRelative)) {
+                                let banana = element['date'];
+                                let muffin = box.toString();
+                                let bananaMuffin = banana + muffin;
+                                document.getElementById(bananaMuffin).classList.add(element.activity);
+                            }
                         }
                     }
-                }
+                })
+
             });
         }
     }
+}
+
+const dataMaker = document.getElementById('showChart');
+dataMaker.addEventListener('click', function(){
+    const temp = document.getElementById('data');
+    let clone = temp.content.cloneNode(true);
+    document.getElementById('dataTarget').appendChild(clone);
+    let canvas = document.getElementById('pieChart');
+    makeChart(canvas);
+
+});
+
+function makeChart (canvas) {
+    var ctx = canvas.getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Study', 'Sleep', 'Rest', 'Travel', 'Hobby', 'Work'],
+            datasets: [{
+                label: 'Type of Event',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+    });
+
 }

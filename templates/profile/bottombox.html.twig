@@ -4,7 +4,7 @@
             <button id="showNextEvents" class="bottomboxbutton">events</button>
         </div>
         <div class="col-8 d-flex justify-content-around">
-            <button id="nextHours" class="bottomboxbutton">Show More</button>
+            <button id="showChart" class="bottomboxbutton">Show More</button>
             <section class="text-center">
                 <button id="eventAdd" class="bottomboxbutton">Event Add</button>
 
@@ -17,7 +17,28 @@
 
     </div>
     <div id="eventAddTarget"></div>
+    <div id="dataTarget"></div>
+
+
 </main>
+
+<template id="data">
+    <section class="row">
+        <div class="col-6">
+            <canvas id="pieChart" width="40" height="40"></canvas>
+        </div>
+        <div class="col-6 d-flex flex-column text-center justify-content-around">
+            <h4>Study</h4>
+            <h4>Sleep</h4>
+            <h4>Rest</h4>
+            <h4>Travel</h4>
+            <h4>Hobby</h4>
+            <h4>Work</h4>
+        </div>
+
+    </section>
+</template>
+
 
 <template id="eventMaker">
     {% for event in getEvents %}
@@ -55,5 +76,8 @@
 <script>
     let dateArray = {{ events|json_encode|raw }};
     let motherfile = {{ getEvents2|json_encode|raw }};
-    console.log(motherfile[18]);
+
+
+
+
 </script>
