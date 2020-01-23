@@ -50,12 +50,8 @@ class EventRepository extends ServiceEntityRepository
     }
     */
 
-<<<<<<< HEAD
     public function getUsefulDataArray (Person $person):array{
-=======
-    public function getUsefulDataArray(Person $person)
-    {
->>>>>>> ef14132b9c6583299b09844c2e7a68e2a3ace471
+
         $events = $this->findBy([
             'person' => $person,
         ]);
@@ -74,10 +70,32 @@ class EventRepository extends ServiceEntityRepository
             $indexCounter = $event->getStart()->format('d');
 
             $info = $anal->minuteGetter($event->getStart(), $event->getStop());
-            $minuteArray[$indexCounter][$counter] = $info;
-            $minuteArray[$indexCounter][$counter]['activity'] = $event->getActivity();
-            $minuteArray[$indexCounter][$counter]['date'] = $event->getStart()->format('d');
-            $counter++;
+            if ($info['endRelative'] > 1440){
+
+                $nextDayEnd = $info['endRelative']-1440;
+                $nextDay = (int)$event->getStart()->format('d')+1;
+
+                $info['endRelative'] = 1440;
+                $minuteArray[$indexCounter][$counter] = $info;
+                $minuteArray[$indexCounter][$counter]['activity'] = $event->getActivity();
+                $minuteArray[$indexCounter][$counter]['date'] = $event->getStart()->format('d');
+                $counter++;
+
+                $info['startRelative'] = 0;
+                $info['endRelative'] = $nextDayEnd;
+                $minuteArray[$nextDay][$counter] = $info;
+                $minuteArray[$nextDay][$counter]['activity'] = $event->getActivity();
+                $minuteArray[$nextDay][$counter]['date'] = (string)$nextDay;
+                $counter++;
+
+            } else {
+                $minuteArray[$indexCounter][$counter] = $info;
+                $minuteArray[$indexCounter][$counter]['activity'] = $event->getActivity();
+                $minuteArray[$indexCounter][$counter]['date'] = $event->getStart()->format('d');
+                $counter++;
+
+            }
+
 
 
 
