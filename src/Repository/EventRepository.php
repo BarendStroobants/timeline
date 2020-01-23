@@ -59,6 +59,10 @@ class EventRepository extends ServiceEntityRepository
         $anal = new Analyzer();
 
         $minuteArray = [];
+
+
+        $checker = false;
+        $holdover = [];
         $counter = 0;
         $indexCounter = 0;
         foreach ($events as $key => $event) {
@@ -70,6 +74,9 @@ class EventRepository extends ServiceEntityRepository
             $indexCounter = $event->getStart()->format('d');
 
             $info = $anal->minuteGetter($event->getStart(), $event->getStop());
+
+
+
             if ($info['endRelative'] > 1440){
 
                 $nextDayEnd = $info['endRelative']-1440;
@@ -80,14 +87,17 @@ class EventRepository extends ServiceEntityRepository
                 $minuteArray[$indexCounter][$counter]['activity'] = $event->getActivity();
                 $minuteArray[$indexCounter][$counter]['date'] = $event->getStart()->format('d');
                 $counter++;
+                $checker = true;
+
 
                 $info['startRelative'] = 0;
                 $info['endRelative'] = $nextDayEnd;
-                $minuteArray[$nextDay][$counter] = $info;
-                $minuteArray[$nextDay][$counter]['activity'] = $event->getActivity();
-                $minuteArray[$nextDay][$counter]['date'] = (string)$nextDay;
-                $counter++;
+                $info['totalMinutes'] = $nextDayEnd;
+                $holdover[$nextDay][0] = $info;
+                $holdover[$nextDay][0]['activity'] = $event->getActivity();
+                $holdover[$nextDay][0]['date'] = (string)$nextDay;
 
+                var_dump($holdover);
             } else {
                 $minuteArray[$indexCounter][$counter] = $info;
                 $minuteArray[$indexCounter][$counter]['activity'] = $event->getActivity();
@@ -101,6 +111,10 @@ class EventRepository extends ServiceEntityRepository
 
         }
 
+
+        foreach ($holdover as $key => $holder) {
+            $minuteArray[$key][] = $holder[0];
+        }
         return $minuteArray;
     }
 }
