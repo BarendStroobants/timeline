@@ -27,11 +27,7 @@ class ProfileController extends AbstractController
 
         $analyer = new Analyzer();
 
-        $date = new \DateTime();
-        $date->modify('-3 days');
-        $dateStart = $date->format('d');
-        $dateEnd = new \DateTime();
-        $analyerArray = $analyer->minuteGetter($date, $dateEnd);
+
 
         $form = $this->createForm(EventMakerType::class);
         $event = new Event();
@@ -50,7 +46,6 @@ class ProfileController extends AbstractController
 
         return $this->render('profile/index.html.twig', [
             'form' => $form->createView(),
-            'events' => $analyerArray,
             'getEvents' => $getEvents,
             'getEvents2' => $getEvents2
         ]);
