@@ -12,10 +12,8 @@
         </div>
     </section>
 
+    <div id="showEvents"></div>
 
-    <div class='row-fluid d-flex justify-content-center' id="showEvents">
-
-    </div>
     <div id="eventAddTarget"></div>
     <div id="dataTarget"></div>
 
@@ -39,40 +37,25 @@
     </section>
 </template>
 
-
 <template id="eventMaker">
-        <table>
+    <table class="eventTable">
+        <tr>
+            <th>ID</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Description</th>
+            <th>Activity</th>
+        </tr>
+        {% for event in getEvents %}
             <tr>
-                <th>ID</th>
-                <th>Start</th>
-                <th>End</th>
-                <th>Description</th>
-                <th>Activity</th>
+                <td id="eventNumber">{{ event.id }}</td>
+                <td id="start">{{ event.start|date("d/m/y") }}</td>
+                <td id="end">{{ event.stop|date("d/m/y") }}</td>
+                <td id="eventDescription">{{ event.description }}</td>
+                <td id="activity">{{ event.activity }}</td>
             </tr>
-        </table>
-    {% for event in getEvents %}
-    <article>
-        <div id="eventNumber">
-            {{ event.id }}
-        </div>
-
-        <div id="eventDescription">
-            {{ event.description }}
-        </div>
-
-        <div id="activity">
-            {{ event.activity }}
-        </div>
-
-        <div id="start">
-            {{ event.start|date("d/m/y") }}
-        </div>
-
-        <div id="end">
-            {{ event.stop|date("d/m/y") }}
-        </div>
-    </article>
-    {% endfor %}
+        {% endfor %}
+    </table>
 </template>
 
 <template id="eventForm">
