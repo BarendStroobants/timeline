@@ -63,6 +63,9 @@ class EventRepository extends ServiceEntityRepository
         $indexCounter = 0;
         foreach ($events as $key => $event) {
 
+            if ($indexCounter !== $event->getStart()->format('d')) {
+                $counter = 0;
+            }
 
             $indexCounter = $event->getStart()->format('d');
 
@@ -71,7 +74,7 @@ class EventRepository extends ServiceEntityRepository
             $minuteArray[$indexCounter][$counter]['activity'] = $event->getActivity();
             $minuteArray[$indexCounter][$counter]['date'] = $event->getStart()->format('d');
             $counter++;
-            if ()
+
 
 
         }
