@@ -25,7 +25,7 @@ class ProfileController extends AbstractController
 
 
 
-        $getEvents2 = $this->getDoctrine()->getRepository(Event::class)->getUsefulDataArray($this->getUser());
+      $getEvents2 = $this->getDoctrine()->getRepository(Event::class)->getUsefulDataArray($this->getUser());
 
 
 
