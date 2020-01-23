@@ -7,6 +7,7 @@ use phpDocumentor\Reflection\Types\String_;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\DateTime;
@@ -18,7 +19,11 @@ class EventMakerType extends AbstractType
         $builder
             ->add('start', DateTimeType::class, [
                 'label' => 'Start Time',
-                'placeholder' => 'Select',
+                'placeholder' => [
+                    'month' => 'month',
+                    'day' => 'day',
+                    'year' => 'year',
+                ],
                 'years' => range(2020, 2022),
 
             ])
@@ -39,9 +44,18 @@ class EventMakerType extends AbstractType
                     'wash' => 'wash',
                 ]
             ])
-            ->add('location')
-            ->add('description')
-        ;
+            ->add('location', TextType::class, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'location'
+                ]
+            ])
+            ->add('description', TextType::class, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'description'
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -7,7 +7,6 @@
             <button id="showChart" class="bottomboxbutton">Show More</button>
             <section class="text-center">
                 <button id="eventAdd" class="bottomboxbutton">Event Add</button>
-
             </section>
         </div>
     </section>
@@ -15,9 +14,8 @@
     <div id="showEvents"></div>
 
     <div id="eventAddTarget"></div>
+
     <div id="dataTarget"></div>
-
-
 </main>
 
 <template id="data">
@@ -59,11 +57,34 @@
 </template>
 
 <template id="eventForm">
-    <section>
+    <section class="eventInputForm">
         {{ form_start(form) }}
-        <button type="submit">Post Event</button>
+
+        <div>
+            {{ form_row(form.start) }}
+        </div>
+
+        <div>
+            {{ form_row(form.stop) }}
+        </div>
+
+        <div>
+            {{ form_row(form.activity) }}
+        </div>
+
+        <div>
+            {{ form_row(form.location) }}
+        </div>
+
+        <div>
+            {{ form_row(form.description) }}
+        </div>
+
+        <button type="submit" class="bottomboxbutton">Post Event</button>
+
         {{ form_end(form) }}
     </section>
+
 </template>
 <script>
 
