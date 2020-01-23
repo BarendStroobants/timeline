@@ -36,6 +36,7 @@ class EventMakerType extends AbstractType
                     'study' => 'study',
                     'eat' => 'eat',
                     'hobby' => 'hobby',
+                    'wash' => 'wash',
                 ]
             ])
             ->add('location')
