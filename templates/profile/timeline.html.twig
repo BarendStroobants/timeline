@@ -36,14 +36,15 @@
 <template id="expandedDates">
     <div class="targetGraph">
         <div class="agendaHours">
-            <section class="agendaHoursInside my-5 d-flex flex-column">
+            <section class="agendaHoursInside mt-4 d-flex flex-column">
                 {% set counter = 0 %}
                 {% for hours in 0..23 %}
-                    <div class="d-flex">
-                        {% if loop.index0 < 10 %}
-                            <p><span class="paddingZero">0</span>{{loop.index0}}</p>
+                    {% if loop.index0 < 10 %}
+                    <div class="boxFlex">
+                            <p class="mr-1"><span class="paddingZero">0</span>{{loop.index0}}</p>
                         {% else %}
-                            <p> {{loop.index0}}</p>
+                        <div class="boxFlex pl-1">
+                            <p class="mr-1 text-center"> {{loop.index0}}</p>
                         {% endif %}
                         <div>
                             {% for quarters in 0..3 %}

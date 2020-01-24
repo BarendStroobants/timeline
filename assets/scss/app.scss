@@ -34,32 +34,45 @@ body {
 }
 
 .dateBox {
-    min-width: 180px;
+    min-width: 184px;
 }
 
 .agendaHours {
     height: 450px;
     overflow: hidden;
+    background: black;
+    margin-left: 1px;
+    margin-right: 1px;
+    border-radius: 4px;
 
     .agendaHoursInside {
         height: 400px;
         overflow-y: scroll;
         width: 100%;
-        padding-right: 17px;
+        padding-right: 20px;
         box-sizing: content-box;
     }
 }
 .paddingZero {
     visibility: hidden;
+    padding-left: 4px;
 }
 
+.boxFlex {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    left: -3px;
+    color: #e2f0ef;
+
+}
 
     .minutes {
         display: flex;
         justify-content: center;
         .minuteBox {
-            width: 10px;
-            height: 10px;
+            width: 9px;
+            height: 9px;
             border: 1px solid #e2f0ef;;
         }
     }
@@ -130,4 +143,9 @@ body {
 
 .wash {
     background-color: darkolivegreen;
+}
+
+.targetGraph {
+    display: flex;
+    padding: 2px;
 }
