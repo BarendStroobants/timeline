@@ -35,10 +35,11 @@ class ProfileController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             //check if date is greater
-            if (!$form->get('stop') < $form->get('start')) {
+            var_dump(!$form->get('stop') < $form->get('start'));
+          /*  if (!$form->get('stop') < $form->get('start')) {
                 $this->addFlash('error', 'Please check time input');
-                return $this->redirectToRoute('profile');
-            }
+                return $this->redirectToRoute('profile'); }*/
+
             //todo check if time elapsed is greater than 1440
 
 
