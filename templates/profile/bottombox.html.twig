@@ -44,7 +44,6 @@
 <template id="eventMaker">
     <table class="eventTable">
         <tr>
-            <th>ID</th>
             <th>Start</th>
             <th>End</th>
             <th>Description</th>
@@ -52,9 +51,8 @@
         </tr>
         {% for event in getEvents %}
             <tr>
-                <td id="eventNumber">{{ event.id }}</td>
-                <td id="start">{{ event.start|date("d/m/y") }}</td>
-                <td id="end">{{ event.stop|date("d/m/y") }}</td>
+                <td id="start">{{ event.start|date("d/m/y") }}<span> {{ event.start|date('h:i') }}</span></td>
+                <td id="end">{{ event.stop|date("d/m/y") }} <span> {{ event.stop|date('h:i') }}</span></td>
                 <td id="eventDescription">{{ event.description }}</td>
                 <td id="activity">{{ event.activity }}</td>
             </tr>

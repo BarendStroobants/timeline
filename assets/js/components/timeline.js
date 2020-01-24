@@ -278,7 +278,6 @@ function makeChart (canvas, totalMinuteData) {
     document.getElementById('eatTotal').innerText = totalMinuteData['eat']+' minutes';
     document.getElementById('restTotal').innerText = totalMinuteData['rest']+' minutes';
 
-
     var ctx = canvas.getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'pie',
