@@ -6,8 +6,11 @@
 @import "partials/eventTable.scss";
 @import "partials/eventForm";
 
+
 body {
-    background-color: darkgrey;
+    background-image: url("./partials/mountain.jpg");
+    background-attachment: fixed;
+    background-size: cover;
     width: 100vw;
     height: 100vh;
     overflow-x: hidden;
@@ -26,7 +29,7 @@ body {
 }
 
 .dateContainer {
-    background-color: darkslategrey;
+    background-color: hsla(210, 48%, 51%, 0.67);
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -40,10 +43,12 @@ body {
 .agendaHours {
     height: 450px;
     overflow: hidden;
-    background: black;
+    background: hsla(210, 28%, 50%, 0.83);
     margin-left: 1px;
     margin-right: 1px;
     border-radius: 4px;
+    box-shadow: 0 0 8px inset black, 0 0 10px inset hsla(210, 28%, 50%, 0.83);
+    transform: translateZ(-3px);
 
     .agendaHoursInside {
         height: 400px;
@@ -65,6 +70,10 @@ body {
     left: -3px;
     color: #e2f0ef;
 
+}
+
+.mainHeader {
+    text-shadow: 0 0 4px #0a0a0a;
 }
 
     .minutes {
