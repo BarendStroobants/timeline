@@ -29,7 +29,7 @@ body {
 }
 
 .dateContainer {
-    background-color: hsla(210, 48%, 51%, 0.67);
+    background-color: darkslategray;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -43,7 +43,7 @@ body {
 .agendaHours {
     height: 450px;
     overflow: hidden;
-    background: hsla(210, 28%, 50%, 0.83);
+    background: black;
     margin-left: 1px;
     margin-right: 1px;
     border-radius: 4px;
@@ -113,6 +113,10 @@ body {
     color: whitesmoke;
 }
 
+.dataInfo {
+    text-shadow: 0 0 5px whitesmoke;
+}
+
 .arrows:nth-of-type(0) {
 
 }
@@ -157,4 +161,9 @@ body {
 .targetGraph {
     display: flex;
     padding: 2px;
+
+}
+
+#dataTarget {
+    background: darkslategray;
 }
