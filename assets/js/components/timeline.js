@@ -10,10 +10,9 @@ let totalMinuteData = {
     "study": 0,
     "eat": 0,
     "hobby": 0,
-    "wash": 0
+    "wash": 0,
+    "rest": 0,
 };
-
-
 
 const dates = document.querySelectorAll(".dateBox");
 const arrows = document.querySelectorAll(".arrows");
@@ -72,11 +71,8 @@ dates.forEach(function (element, i) {
     element.addEventListener('click', function (e) {
         showMinutesGraphic();
 
-
-
     })
 });
-
 
 
 eventsButton.addEventListener('click', function (e) {
@@ -249,7 +245,8 @@ function setBoxes(motherfile) {
         "study": 0,
         "eat": 0,
         "hobby": 0,
-        "wash": 0
+        "wash": 0,
+        "rest": 0,
     };
     motherfile.forEach(function(userDateEvents) {
         currentSelectedDates.forEach(function(dateNumbersDisplayed){
@@ -278,23 +275,27 @@ function makeChart (canvas, totalMinuteData) {
     document.getElementById('travelTotal').innerText = totalMinuteData['travel']+' minutes';
     document.getElementById('hobbyTotal').innerText = totalMinuteData['hobby']+' minutes';
     document.getElementById('workTotal').innerText = totalMinuteData['work']+' minutes';
+    document.getElementById('eatTotal').innerText = totalMinuteData['eat']+' minutes';
+    document.getElementById('restTotal').innerText = totalMinuteData['rest']+' minutes';
 
 
     var ctx = canvas.getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: ['Study', 'Sleep', 'Wash', 'Travel', 'Hobby', 'Work'],
+            labels: ['Study', 'Sleep', 'Wash', 'Travel', 'Hobby', 'Work', 'Eat', 'Rest'],
             datasets: [{
                 label: '7 Day Activity Totals',
-                data: [totalMinuteData['study'], totalMinuteData['sleep'], totalMinuteData['wash'], totalMinuteData['travel'], totalMinuteData['hobby'], totalMinuteData['work']],
+                data: [totalMinuteData['study'], totalMinuteData['sleep'], totalMinuteData['wash'], totalMinuteData['travel'], totalMinuteData['hobby'], totalMinuteData['work'], totalMinuteData['eat'], totalMinuteData['rest']],
                 backgroundColor: [
                     'hsla(245, 100%, 50%, 0.2)',
                     'hsla(0, 100%, 50%, 0.2)',
                     'rgba(83, 105, 43, 0.2)',
                     'hsla(300, 100%, 50%, 0.2)',
                     'hsla(50, 100%, 50%, 0.2)',
-                    'hsla(180, 100%, 50%, 0.2)'
+                    'hsla(180, 100%, 50%, 0.2)',
+                    'hsla(125, 100%, 50%, 0.2)',
+                    'rgba(128, 128, 128, 0.2)'
                 ],
                 borderColor: [
                     'hsla(245, 100%, 50%, 1)',
@@ -302,7 +303,9 @@ function makeChart (canvas, totalMinuteData) {
                     'rgba(83, 105, 43, 1)',
                     'hsla(300, 100%, 50%, 1)',
                     'hsla(50, 100%, 50%, 1)',
-                    'hsla(180, 100%, 50%, 1)'
+                    'hsla(180, 100%, 50%, 1)',
+                    'hsla(125, 100%, 50%, 1)',
+                    'rgba(128, 128, 128, 1)'
                 ],
                 borderWidth: 2
             }]

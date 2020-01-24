@@ -27,10 +27,7 @@ class ProfileController extends AbstractController
             'person' => $this->getUser(),
         ]);
 
-
         $getEvents2 = $this->getDoctrine()->getRepository(Event::class)->getUsefulDataArray($this->getUser(), $analyzer);
-
-
 
         $form = $this->createForm(EventMakerType::class);
         $event = new Event();
@@ -42,6 +39,10 @@ class ProfileController extends AbstractController
                 $this->addFlash('error', 'Please check time input');
                 return $this->redirectToRoute('profile');
             }
+            //todo check if time elapsed is greater than 1440
+
+
+
            $event = $form->getData();
            $event->setPerson($this->getUser());
            $em = $this->getDoctrine()->getManager();
