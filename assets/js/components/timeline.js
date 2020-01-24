@@ -25,7 +25,8 @@ setDate(dayCounter);
 
 
 today[0].addEventListener('click', function (e) {
-
+    document.getElementById('showChart').style.visibility = "hidden";
+    document.getElementById('dataTarget').innerText = "";
     clearDates(currentDates);
 
     dayCounter = 0;
@@ -98,7 +99,7 @@ eventAdd.addEventListener('click', function () {
 
 
 dataMaker.addEventListener('click', function(){
-    if (document.getElementById('chart')) {
+    if (document.getElementById('pieChart')) {
         document.getElementById('dateTarget').innerHTML = "";
     }
     const temp = document.getElementById('data');
