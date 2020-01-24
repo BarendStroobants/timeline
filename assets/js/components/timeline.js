@@ -223,7 +223,6 @@ function showMinutesGraphic() {
 
 function setBoxes(motherfile) {
     const currentSelectedDates = document.querySelectorAll('.dateNumber');
-
     motherfile.forEach(function(userDateEvents) {
         currentSelectedDates.forEach(function(dateNumbersDisplayed){
                 if (userDateEvents.date === parseInt(dateNumbersDisplayed.getAttribute('data-day')) &&

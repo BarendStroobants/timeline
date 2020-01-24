@@ -11,6 +11,21 @@
 
     </head>
     <body>
+    {# before #}
+    {% if app.session is not null and app.session.started %}
+        {% for label, messages in app.session.flashbag.all %}
+            {% for message in messages %}
+               <div>{{message}}</div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+
+    {# after #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div>{{message}}</div>
+        {% endfor %}
+    {% endfor %}
         {% block body %}{% endblock %}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
