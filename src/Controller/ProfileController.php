@@ -19,6 +19,8 @@ class ProfileController extends AbstractController
      */
     public function index(Request $request, Analyzer $analyzer)
     {
+
+        
         $getEvents = $this->getDoctrine()->getRepository(Event::class)->findBy([
             'person' => $this->getUser(),
         ]);
