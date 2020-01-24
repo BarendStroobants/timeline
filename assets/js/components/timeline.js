@@ -102,6 +102,9 @@ eventAdd.addEventListener('click', function () {
 
 
 dataMaker.addEventListener('click', function(){
+    if (document.getElementById('chart')) {
+        document.getElementById('dateTarget').innerHTML = "";
+    }
     const temp = document.getElementById('data');
     let clone = temp.content.cloneNode(true);
     document.getElementById('dataTarget').appendChild(clone);
