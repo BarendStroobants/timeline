@@ -50,13 +50,14 @@ class EventRepository extends ServiceEntityRepository
     }
     */
 
-    public function getUsefulDataArray (Person $person):array{
+    public function getUsefulDataArray (Person $person, Analyzer $anal):array{
 
         $events = $this->findBy([
             'person' => $person,
         ]);
         $superCounterExtreme = 0;
-        $anal = new Analyzer();
+
+
 
         $minuteArray = [];
 

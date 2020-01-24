@@ -4,19 +4,15 @@ let dayCounter = 0;
 let checker = false;
 let currentDates = [];
 
-
 const dates = document.querySelectorAll(".dateBox");
 const arrows = document.querySelectorAll(".arrows");
 const today = document.querySelectorAll(".today");
+const eventsButton = document.getElementById('showNextEvents');
+const eventAdd = document.getElementById('eventAdd');
+const dataMaker = document.getElementById('showChart');
 
 setDate(dayCounter);
 
-function clearDates(_currentDates){
-    _currentDates = [];
-    document.querySelectorAll('.targetGraph').forEach(function (element) {
-        element.innerText = "";
-    });
-}
 
 today[0].addEventListener('click', function (e) {
 
@@ -37,41 +33,41 @@ arrows.forEach(function (element, i) {
                 dayCounter--;
                 checker = true;
                 setDate(dayCounter);
+                showMinutesGraphic();
                 break;
 
             case 1:
                 dayCounter++;
                 checker = true;
                 setDate(dayCounter);
+                showMinutesGraphic();
                 break;
 
             default:
                 break;
         }
-    });
+
+        e.target.style.textShadow = "0 0 20px orange";
+
+        // reset the color after a short delay
+        setTimeout(function() {
+            e.target.style.textShadow = "";
+        }, 500);
+    }, false);
+
 });
 
 dates.forEach(function (element, i) {
     element.addEventListener('click', function (e) {
+        showMinutesGraphic();
 
-        clearDates(currentDates);
-
-        dates.forEach(function (element) {
-            currentDates.push(element.innerText);
-            let template = document.querySelector('#expandedDates');
-            let clone = template.content.cloneNode(true);
-            element.appendChild(clone);
-        });
-
-        setDates(currentDates);
-        checker = true;
-        setBoxes(motherfile);
 
 
     })
 });
 
-let eventsButton = document.getElementById('showNextEvents');
+
+
 eventsButton.addEventListener('click', function (e) {
 
     let template = document.getElementById('eventMaker');
@@ -81,7 +77,7 @@ eventsButton.addEventListener('click', function (e) {
 
 });
 
-let eventAdd = document.getElementById('eventAdd');
+
 eventAdd.addEventListener('click', function () {
     if (document.getElementById('eventForm')) {
         document.getElementById('eventAddTarget').innerHTML = "";
@@ -89,6 +85,16 @@ eventAdd.addEventListener('click', function () {
     const temp = document.getElementById('eventForm');
     let clone = temp.content.cloneNode(true);
     document.getElementById('eventAddTarget').appendChild(clone);
+});
+
+
+dataMaker.addEventListener('click', function(){
+    const temp = document.getElementById('data');
+    let clone = temp.content.cloneNode(true);
+    document.getElementById('dataTarget').appendChild(clone);
+    let canvas = document.getElementById('pieChart');
+    makeChart(canvas);
+
 });
 
 function setDate() {
@@ -175,6 +181,13 @@ let numberMonth = 0;
 
 }
 
+function clearDates(_currentDates){
+    _currentDates = [];
+    document.querySelectorAll('.targetGraph').forEach(function (element) {
+        element.innerText = "";
+    });
+}
+
 function setDates(dateNumber) {
 
     let minuteBoxes = document.querySelectorAll('.minuteBox');
@@ -190,6 +203,21 @@ function setDates(dateNumber) {
         element.id = currentDates[currentIndex] + minuteCounter.toString();
         minuteCounter++;
     });
+}
+
+function showMinutesGraphic() {
+    clearDates(currentDates);
+
+    dates.forEach(function (element) {
+        currentDates.push(element.innerText);
+        let template = document.querySelector('#expandedDates');
+        let clone = template.content.cloneNode(true);
+        element.appendChild(clone);
+    });
+
+    setDates(currentDates);
+    checker = true;
+    setBoxes(motherfile);
 }
 
 
@@ -209,23 +237,10 @@ function setBoxes(motherfile) {
                                 document.getElementById(bananaMuffin).classList.add(userDateEvents.activity);
                                 box++;
                             }
-
-
                 }
         });
-
     });
 }
-
-const dataMaker = document.getElementById('showChart');
-dataMaker.addEventListener('click', function(){
-    const temp = document.getElementById('data');
-    let clone = temp.content.cloneNode(true);
-    document.getElementById('dataTarget').appendChild(clone);
-    let canvas = document.getElementById('pieChart');
-    makeChart(canvas);
-
-});
 
 function makeChart (canvas) {
     var ctx = canvas.getContext('2d');

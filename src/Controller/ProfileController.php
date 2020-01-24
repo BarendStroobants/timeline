@@ -17,7 +17,7 @@ class ProfileController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function index(Request $request)
+    public function index(Request $request, Analyzer $analyzer)
     {
         $getEvents = $this->getDoctrine()->getRepository(Event::class)->findBy([
             'person' => $this->getUser(),
@@ -25,7 +25,7 @@ class ProfileController extends AbstractController
 
 
 
-        $getEvents2 = $this->getDoctrine()->getRepository(Event::class)->getUsefulDataArray($this->getUser());
+        $getEvents2 = $this->getDoctrine()->getRepository(Event::class)->getUsefulDataArray($this->getUser(), $analyzer);
 
 
 
