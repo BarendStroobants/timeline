@@ -48,9 +48,10 @@ class ProfileController extends AbstractController
            $event->setPerson($this->getUser());
            $em = $this->getDoctrine()->getManager();
            $em->persist($event);
-           $em->flush();
+       //   $em->flush();
 
-          return $this->redirectToRoute('profile');
+          $this->addFlash('success', 'you message has been added');
+        //  return $this->redirectToRoute('profile');
         }
 
         return $this->render('profile/index.html.twig', [
