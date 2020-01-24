@@ -3,6 +3,17 @@ import Chart from 'chart.js'
 let dayCounter = 0;
 let checker = false;
 let currentDates = [];
+let totalMinuteData = {
+    "sleep": 0,
+    "work": 0,
+    "travel": 0,
+    "study": 0,
+    "eat": 0,
+    "hobby": 0,
+    "wash": 0
+};
+
+
 
 const dates = document.querySelectorAll(".dateBox");
 const arrows = document.querySelectorAll(".arrows");
@@ -69,7 +80,9 @@ dates.forEach(function (element, i) {
 
 
 eventsButton.addEventListener('click', function (e) {
-
+    if (document.getElementById('eventMaker')) {
+        document.getElementById('showEvents').innerHTML = "";
+    }
     let template = document.getElementById('eventMaker');
     let clone = template.content.cloneNode(true);
     document.getElementById('showEvents').appendChild(clone);
@@ -93,7 +106,7 @@ dataMaker.addEventListener('click', function(){
     let clone = temp.content.cloneNode(true);
     document.getElementById('dataTarget').appendChild(clone);
     let canvas = document.getElementById('pieChart');
-    makeChart(canvas);
+    makeChart(canvas, totalMinuteData);
 
 });
 
@@ -189,7 +202,6 @@ function clearDates(_currentDates){
 }
 
 function setDates(dateNumber) {
-
     let minuteBoxes = document.querySelectorAll('.minuteBox');
     let currentIndex = 0;
 
@@ -206,6 +218,7 @@ function setDates(dateNumber) {
 }
 
 function showMinutesGraphic() {
+    document.getElementById('showChart').style.visibility = "visible";
     clearDates(currentDates);
 
     dates.forEach(function (element) {
@@ -218,16 +231,29 @@ function showMinutesGraphic() {
     setDates(currentDates);
     checker = true;
     setBoxes(motherfile);
+    if (document.getElementById('pieChart')) {
+        makeChart(document.getElementById('pieChart'), totalMinuteData);
+    }
 }
 
 
 function setBoxes(motherfile) {
     const currentSelectedDates = document.querySelectorAll('.dateNumber');
+    totalMinuteData = {
+        "sleep": 0,
+        "work": 0,
+        "travel": 0,
+        "study": 0,
+        "eat": 0,
+        "hobby": 0,
+        "wash": 0
+    };
     motherfile.forEach(function(userDateEvents) {
         currentSelectedDates.forEach(function(dateNumbersDisplayed){
                 if (userDateEvents.date === parseInt(dateNumbersDisplayed.getAttribute('data-day')) &&
                     userDateEvents.month === parseInt(dateNumbersDisplayed.getAttribute('data-month')) &&
                     userDateEvents.year === parseInt(dateNumbersDisplayed.getAttribute('data-year'))) {
+                    totalMinuteData[userDateEvents.activity] += userDateEvents.totalMinutes;
                     let box = userDateEvents.startRelative;
                             while(box >= userDateEvents.startRelative && box < (userDateEvents.endRelative)) {
                                 let banana = userDateEvents['date'];
@@ -239,34 +265,43 @@ function setBoxes(motherfile) {
                 }
         });
     });
+
 }
 
-function makeChart (canvas) {
+function makeChart (canvas, totalMinuteData) {
+    document.getElementById('studyTotal').innerText = totalMinuteData['study']+' minutes';
+    document.getElementById('sleepTotal').innerText = totalMinuteData['sleep']+' minutes';
+    document.getElementById('washTotal').innerText = totalMinuteData['wash']+' minutes';
+    document.getElementById('travelTotal').innerText = totalMinuteData['travel']+' minutes';
+    document.getElementById('hobbyTotal').innerText = totalMinuteData['hobby']+' minutes';
+    document.getElementById('workTotal').innerText = totalMinuteData['work']+' minutes';
+
+
     var ctx = canvas.getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: ['Study', 'Sleep', 'Rest', 'Travel', 'Hobby', 'Work'],
+            labels: ['Study', 'Sleep', 'Wash', 'Travel', 'Hobby', 'Work'],
             datasets: [{
-                label: 'Type of Event',
-                data: [12, 19, 3, 5, 2, 3],
+                label: '7 Day Activity Totals',
+                data: [totalMinuteData['study'], totalMinuteData['sleep'], totalMinuteData['wash'], totalMinuteData['travel'], totalMinuteData['hobby'], totalMinuteData['work']],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    'hsla(245, 100%, 50%, 0.2)',
+                    'hsla(0, 100%, 50%, 0.2)',
+                    'rgba(83, 105, 43, 0.2)',
+                    'hsla(300, 100%, 50%, 0.2)',
+                    'hsla(50, 100%, 50%, 0.2)',
+                    'hsla(180, 100%, 50%, 0.2)'
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
+                    'hsla(245, 100%, 50%, 1)',
+                    'hsla(0, 100%, 50%, 1)',
+                    'rgba(83, 105, 43, 1)',
+                    'hsla(300, 100%, 50%, 1)',
+                    'hsla(50, 100%, 50%, 1)',
+                    'hsla(180, 100%, 50%, 1)'
                 ],
-                borderWidth: 1
+                borderWidth: 2
             }]
         },
     });
