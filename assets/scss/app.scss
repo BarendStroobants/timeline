@@ -6,6 +6,10 @@
 @import "partials/eventTable.scss";
 @import "partials/eventForm";
 
+@mixin boxshadower {
+     box-shadow: 4px 5px 5px black;
+}
+
 
 body {
     margin: 0 auto;
@@ -24,6 +28,7 @@ body {
     background: #e2f0ef;
     border: 3px solid #51aaa3;
     color:  #51aaa3;
+     @include boxshadower;
 }
 
 .today:hover {
@@ -31,7 +36,7 @@ body {
 }
 
 .dateContainer {
-    background-color: darkslategray;
+  /*  background-color: darkslategray; */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -39,17 +44,17 @@ body {
 }
 
 .dateBox {
-    min-width: 184px;
+    min-width: 170px;
 }
 
 .agendaHours {
     height: 450px;
     overflow: hidden;
-    background: black;
+   
     margin-left: 1px;
     margin-right: 1px;
     border-radius: 4px;
-    box-shadow: 0 0 8px inset black, 0 0 10px inset hsla(210, 28%, 50%, 0.83);
+   /* box-shadow: 0 0 8px inset black, 0 0 10px inset hsla(210, 28%, 50%, 0.83);      */
     transform: translateZ(-3px);
 
     .agendaHoursInside {
@@ -70,7 +75,7 @@ body {
     justify-content: center;
     position: relative;
     left: -3px;
-    color: #e2f0ef;
+    color: #51aaa3;
 
 }
 
@@ -93,7 +98,7 @@ body {
 
 
 
-.dateBox, .month, .year, .extraButtons {
+.dateBox, .month, .year, .extraButtons, .totalMinute, .pieChartBox, .dateButtonBoxes {
     border-radius: 10px;
     font-size: 1rem;
     line-height: 1;
@@ -104,11 +109,23 @@ body {
     color: #51aaa3;
     margin: 0.375rem;
     flex-grow: 1;
+     @include boxshadower;
 }
 
-.dateBox {
-    box-shadow: 4px 5px 5px black;
+.bottomboxbuttonSizer {
+   color: #e2f0ef;
+    border-color: #e2f0ef;
+
+
 }
+
+.buttonsmallerizer {
+    max-width: 30px;
+}
+
+
+
+
 
 .dateBox:hover {
     border: 3px solid #aa6956;
@@ -118,7 +135,7 @@ body {
 
 .arrows {
     font-size: 3em;
-    color: whitesmoke;
+    color: #51aaa3;
 }
 
 .dataInfo {
@@ -132,26 +149,33 @@ body {
 .arrows:hover {
     font-size: 3em;
     text-shadow: 0 0 4px yellow;
+    border-radius: 50%;
 }
 
 .sleep {
     background: hsla(0, 100%, 50%, 1);
+    border-radius: 50%;
+
 }
 
 .hobby {
     background: hsla(50, 100%, 50%, 1);
+    border-radius: 50%;
 }
 
 .work {
     background: hsla(180, 100%, 50%, 1);
+    border-radius: 50%;
 }
 
 .travel {
     background: hsla(300, 100%, 50%, 1);
+    border-radius: 50%;
 }
 
 .study {
     background: hsla(245, 100%, 50%, 1);
+    border-radius: 50%;
 }
 
 .default {
@@ -160,10 +184,12 @@ body {
 
 .eat {
     background: hsla(125, 100%, 50%, 1);
+    border-radius: 50%;
 }
 
 .wash {
     background-color: darkolivegreen;
+    border-radius: 50%;
 }
 
 .targetGraph {
@@ -174,5 +200,5 @@ body {
 }
 
 #dataTarget {
-    background: darkslategray;
+    /* background: darkslategray;       */
 }
