@@ -25,7 +25,6 @@ setDate(dayCounter);
 
 
 today[0].addEventListener('click', function (e) {
-    document.getElementById('showChart').style.visibility = "hidden";
     document.getElementById('dataTarget').innerText = "";
     clearDates(currentDates);
 
@@ -70,6 +69,7 @@ arrows.forEach(function (element, i) {
 
 dates.forEach(function (element, i) {
     element.addEventListener('click', function (e) {
+
         showMinutesGraphic();
 
     })
@@ -80,6 +80,12 @@ eventsButton.addEventListener('click', function (e) {
     if (document.getElementById('eventMaker')) {
         document.getElementById('showEvents').innerHTML = "";
     }
+    if (document.getElementById('eventAddTarget')) {
+        document.getElementById('eventAddTarget').innerHTML = "";
+    }
+    if (document.getElementById('dataTarget')) {
+        document.getElementById('dataTarget').innerHTML = "";
+    }
     let template = document.getElementById('eventMaker');
     let clone = template.content.cloneNode(true);
     document.getElementById('showEvents').appendChild(clone);
@@ -89,6 +95,15 @@ eventsButton.addEventListener('click', function (e) {
 
 
 eventAdd.addEventListener('click', function () {
+    if (document.getElementById('eventMaker')) {
+        document.getElementById('showEvents').innerHTML = "";
+    }
+    if (document.getElementById('eventAddTarget')) {
+        document.getElementById('eventAddTarget').innerHTML = "";
+    }
+    if (document.getElementById('dataTarget')) {
+        document.getElementById('dataTarget').innerHTML = "";
+    }
     if (document.getElementById('eventForm')) {
         document.getElementById('eventAddTarget').innerHTML = "";
     }
@@ -99,6 +114,15 @@ eventAdd.addEventListener('click', function () {
 
 
 dataMaker.addEventListener('click', function(){
+    if (document.getElementById('eventMaker')) {
+        document.getElementById('showEvents').innerHTML = "";
+    }
+    if (document.getElementById('eventAddTarget')) {
+        document.getElementById('eventAddTarget').innerHTML = "";
+    }
+    if (document.getElementById('dataTarget')) {
+        document.getElementById('dataTarget').innerHTML = "";
+    }
     if (document.getElementById('pieChart')) {
         document.getElementById('dateTarget').innerHTML = "";
     }
@@ -288,14 +312,14 @@ function makeChart (canvas, totalMinuteData) {
                 label: '7 Day Activity Totals',
                 data: [totalMinuteData['study'], totalMinuteData['sleep'], totalMinuteData['wash'], totalMinuteData['travel'], totalMinuteData['hobby'], totalMinuteData['work'], totalMinuteData['eat'], totalMinuteData['rest']],
                 backgroundColor: [
-                    'hsla(245, 100%, 50%, 0.2)',
-                    'hsla(0, 100%, 50%, 0.2)',
-                    'rgba(83, 105, 43, 0.2)',
-                    'hsla(300, 100%, 50%, 0.2)',
-                    'hsla(50, 100%, 50%, 0.2)',
-                    'hsla(180, 100%, 50%, 0.2)',
-                    'hsla(125, 100%, 50%, 0.2)',
-                    'rgba(128, 128, 128, 0.2)'
+                    'hsla(245, 100%, 50%, 1)',
+                    'hsla(0, 100%, 50%, 1)',
+                    'rgba(83, 105, 43, 1)',
+                    'hsla(300, 100%, 50%, 1)',
+                    'hsla(50, 100%, 50%, 1)',
+                    'hsla(180, 100%, 50%, 1)',
+                    'hsla(125, 100%, 50%, 1)',
+                    'rgba(128, 128, 128, 1)'
                 ],
                 borderColor: [
                     'hsla(245, 100%, 50%, 1)',

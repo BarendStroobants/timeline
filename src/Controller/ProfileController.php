@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Util\Analyzer;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProfileController extends AbstractController
 {
@@ -19,6 +20,7 @@ class ProfileController extends AbstractController
      */
     public function index(Request $request, Analyzer $analyzer)
     {
+
         if (!$this->getUser()) {
             $this->redirectToRoute('app_login');
         }
@@ -36,7 +38,7 @@ class ProfileController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             //check if date is greater
             var_dump(!$form->get('stop') < $form->get('start'));
-          /*  if (!$form->get('stop') < $form->get('start')) {
+          /*  if (!$form->profileprofileget('stop') < $form->get('start')) {
                 $this->addFlash('error', 'Please check time input');
                 return $this->redirectToRoute('profile'); }*/
 
@@ -48,10 +50,10 @@ class ProfileController extends AbstractController
            $event->setPerson($this->getUser());
            $em = $this->getDoctrine()->getManager();
            $em->persist($event);
-       //   $em->flush();
+          $em->flush();
 
           $this->addFlash('success', 'you message has been added');
-        //  return $this->redirectToRoute('profile');
+          return $this->redirectToRoute('profile');
         }
 
         return $this->render('profile/index.html.twig', [
@@ -60,4 +62,14 @@ class ProfileController extends AbstractController
             'getEvents2' => $getEvents2
         ]);
     }
+
+    /**
+     * @Route("/{id}/delete", requirements={"id" = "\d+"}, name="delete_event")
+     * @param Event $event
+     * @return void
+     */
+    public function deleteEvent (Event $event) {
+
+    }
 }
+

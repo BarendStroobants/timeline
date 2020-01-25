@@ -1,41 +1,51 @@
-<main class="border-top">
+<main >
     <section class="row-fluid py-5 dateContainer d-flex justify-content-center">
-        <div class="col-4">
-            <button id="showNextEvents" class="bottomboxbutton">events</button>
+        <div class="col-1"></div>
+        <div class="col-2">
+            <button id="showNextEvents" class="bottomboxbutton">Events</button>
         </div>
         <div class="col-6 d-flex justify-content-around">
-            <button id="showChart" class="bottomboxbutton">Show More</button>
+            <button id="showChart" class="bottomboxbutton">Analyze</button>
             <section class="text-center">
-                <button id="eventAdd" class="bottomboxbutton">Event Add</button>
+                <button id="eventAdd" class="bottomboxbutton">Add</button>
             </section>
         </div>
-        <a class='col-1 d-flex justify-content-around bottomboxbutton' href="{{ path('app_logout') }}">Logout</a>
-        <div class="col-1"></div>
+        <div class="col-3 d-flex justify-content-around">
+            <a class='bottomboxbutton text-center' href="{{ path('app_logout') }}">Logout</a>
+
+        </div>
     </section>
+0
 
 
-    <div id="showEvents"></div>
 
-    <div id="eventAddTarget"></div>
 
-    <div class="dataInfo" id="dataTarget"></div>
+    <div class="motherBox">
+        <div id="showEvents"></div>
+
+        <div id="eventAddTarget"></div>
+
+        <div class="dataInfo" id="dataTarget"></div>
+    </div>
 
 </main>
+profile
 
 <template id="data">
     <section id='chart' class="row-fluid d-flex justify-content-center mb-5 py-5">
-        <div class="col-6">
+        <div class="pieChartBox col-5">
             <canvas id="pieChart" width="40" height="40"></canvas>
         </div>
-        <div class="col-6 d-flex flex-column text-center justify-content-around">
-            <h4>Study <span id="studyTotal"></span></h4>
-            <h4>Sleep <span id="sleepTotal"></span></h4>
-            <h4>Wash <span id="washTotal"></span></h4>
-            <h4>Travel <span id="travelTotal"></span></h4>
-            <h4>Hobby <span id="hobbyTotal"></span></h4>
-            <h4>Work <span id="workTotal"></span></h4>
-            <h4>Eat <span id="eatTotal"></span></h4>
-            <h4>Rest <span id="restTotal"></span></h4>
+        <div class="col-1"></div>
+        <div class="col-4 d-flex flex-column text-center justify-content-around totalMinute">
+            <span>Study <span id="studyTotal"></span></span>
+            <span>Sleep <span id="sleepTotal"></span></span>
+            <span>Wash <span id="washTotal"></span></span>
+            <span>Travel <span id="travelTotal"></span></span>
+            <span>Hobby <span id="hobbyTotal"></span></span>
+            <span>Work <span id="workTotal"></span></span>
+            <span>Eat <span id="eatTotal"></span></span>
+            <span>Rest <span id="restTotal"></span></span>
         </div>
 
     </section>
@@ -44,17 +54,21 @@
 <template id="eventMaker">
     <table class="eventTable">
         <tr>
+            <th></th>
             <th>Start</th>
             <th>End</th>
             <th>Description</th>
             <th>Activity</th>
+            <th></th>
         </tr>
         {% for event in getEvents %}
             <tr>
-                <td id="start">{{ event.start|date("d/m/y") }}<span> {{ event.start|date('h:i') }}</span></td>
-                <td id="end">{{ event.stop|date("d/m/y") }} <span> {{ event.stop|date('h:i') }}</span></td>
-                <td id="eventDescription">{{ event.description }}</td>
-                <td id="activity">{{ event.activity }}</td>
+                <td class="" > <a class="py-2  bottomboxbuttonSizer bottomboxbutton buttonsmallerizer bg-success" id="{{ event.id }}"></a></td>
+                <td class=""><span class="bottomboxbutton p-1" id="start">{{ event.start|date("d/m/y") }}<span> {{ event.start|date('h:i') }}</span></span></td>
+                <td class=""><span class="bottomboxbutton p-1" id="end">{{ event.stop|date("d/m/y") }} <span> {{ event.stop|date('h:i') }}</span></span></td>
+                <td class=""><span class="bottomboxbutton  p-1" id="eventDescription">{{ event.description|slice(0, 13) }}</span></td>
+                <td class=""><span class="bottomboxbutton p-1" id="activity">{{ event.activity|slice(0, 13) }}</span></td>
+                <td class="" >  <a class="py-2 bottomboxbuttonSizer bottomboxbutton buttonsmallerizer bg-danger" id="{{ event.id }}" href="{{ path('delete_event', {'id': event.id }) }}"></a>/td>
             </tr>
         {% endfor %}
     </table>

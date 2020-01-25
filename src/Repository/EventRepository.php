@@ -50,14 +50,24 @@ class EventRepository extends ServiceEntityRepository
     }
     */
 
-    public function getUsefulDataArray (Person $person, Analyzer $anal):array{
+    public function getUsefulDataArray(Person $person, Analyzer $anal): array
+    {
 
         $events = $this->findBy([
             'person' => $person,
         ]);
         $superCounterExtreme = 0;
 
-
+        $totalBeginning = [
+            "sleep" => 0,
+            "work" => 0,
+            "travel" => 0,
+            "study" => 0,
+            "eat" => 0,
+            "hobby" => 0,
+            "wash" => 0,
+            "rest" => 0,
+        ];
 
         $minuteArray = [];
 
@@ -71,24 +81,26 @@ class EventRepository extends ServiceEntityRepository
             }
 
             $indexCounter = intval($event->getStart()->format('d'));
-            $indexMonthCounter = intval($event->getStart()->format('m'))-1;
+            $indexMonthCounter = intval($event->getStart()->format('m')) - 1;
             $indexYearCounter = intval($event->getStart()->format('Y'));
 
 
             $info = $anal->minuteGetter($event->getStart(), $event->getStop());
 
-            if ($info['endRelative'] > 1440){
+            if ($info['endRelative'] > 1440) {
 
-                $nextDayEnd = $info['endRelative']-1440;
-                $nextDay = (int)$event->getStart()->format('d')+1;
+                $nextDayEnd = $info['endRelative'] - 1440;
+                $nextDay = (int)$event->getStart()->format('d') + 1;
 
                 $info['endRelative'] = 1440;
                 $minuteArray[$superCounterExtreme] = $info;
-                $minuteArray[$superCounterExtreme]['activity'] = $event->getActivity();
+                $minuteArray[$superCounterExtreme]['activity'] =
                 $minuteArray[$superCounterExtreme]['date'] = $indexCounter;
                 $minuteArray[$superCounterExtreme]['month'] = $indexMonthCounter;
                 $minuteArray[$superCounterExtreme]['year'] = $indexYearCounter;
                 $counter++;
+
+                $totalBeginning[$event->getActivity()] += $info['totalMinutes'];
 
 
                 $info['startRelative'] = 0;
@@ -100,6 +112,8 @@ class EventRepository extends ServiceEntityRepository
                 $holdover[$nextDay][0]['month'] = $indexMonthCounter;
                 $holdover[$nextDay][0]['year'] = $indexYearCounter;
 
+                $totalBeginning[$event->getActivity()] += $info['totalMinutes'];
+
             } else {
                 $minuteArray[$superCounterExtreme] = $info;
                 $minuteArray[$superCounterExtreme]['activity'] = $event->getActivity();
@@ -108,6 +122,7 @@ class EventRepository extends ServiceEntityRepository
                 $minuteArray[$superCounterExtreme]['year'] = $indexYearCounter;
                 $counter++;
 
+                $totalBeginning[$event->getActivity()] += $info['totalMinutes'];
             }
 
 
