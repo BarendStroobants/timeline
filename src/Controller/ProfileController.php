@@ -36,21 +36,26 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //check if date is greater
-            var_dump(!$form->get('stop') < $form->get('start'));
-          /*  if (!$form->profileprofileget('stop') < $form->get('start')) {
+
+
+           $diff = $form->get('start')->getData()->diff($form->get('stop')->getData());
+
+           if ($diff->invert == 1) {
                 $this->addFlash('error', 'Please check time input');
-                return $this->redirectToRoute('profile'); }*/
+                return $this->redirectToRoute('profile');
 
-            //todo check if time elapsed is greater than 1440
-
+                }
+            if ($diff->days > 1) {
+                $this->addFlash('error', 'Please limit your activity time within 24 hours');
+                return $this->redirectToRoute('profile');
+                }
 
 
            $event = $form->getData();
            $event->setPerson($this->getUser());
            $em = $this->getDoctrine()->getManager();
            $em->persist($event);
-          $em->flush();
+           $em->flush();
 
           $this->addFlash('success', 'you message has been added');
           return $this->redirectToRoute('profile');

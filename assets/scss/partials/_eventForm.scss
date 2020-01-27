@@ -5,4 +5,19 @@
   color: #51aaa3;
   border-radius: 10px;
 
+
 }
+
+.selector-form {
+  position: relative;
+}
+
+.selector-form select {
+  background: #e2f0ef;
+  border: 3px solid #51aaa3;
+  color: #51aaa3;
+  margin: 4px;
+  min-width: 90px;
+}
+
+

@@ -116,15 +116,52 @@ eventAdd.addEventListener('click', function () {
     document.getElementById('eventAddTarget').appendChild(clone);
 
     const monthSelect = document.getElementById("event_maker_start_date_month");
-    let monthStop = document.getElementById("event_makers_stop_date_month");
+    let monthStop = document.getElementById("event_maker_stop_date_month");
 
     monthSelect.addEventListener('change', function(e){
-        monthStop = monthSelect.options[monthSelect.selectedIndex].value;
-        
-        console.log(monthSelect.options[monthSelect.selectedIndex].value);
+        monthStop.options[monthStop.selectedIndex].value = monthSelect.options[monthSelect.selectedIndex].value;
 
+
+        monthStop.options[monthStop.selectedIndex].innerText = monthSelect.options[monthSelect.selectedIndex].innerText;
     })
+
+    const daySelector = document.getElementById('event_maker_start_date_day');
+    let dayStopSelector = document.getElementById('event_maker_stop_date_day');
+
+    daySelector.addEventListener('change', function(e){
+        dayStopSelector.options[dayStopSelector.selectedIndex].value = daySelector.options[daySelector.selectedIndex].value;
+        dayStopSelector.options[dayStopSelector.selectedIndex].innerText = daySelector.options[daySelector.selectedIndex].innerText;
+
+
+    });
+
+    const yearSelector = document.getElementById('event_maker_start_date_year');
+    let yearStopSelector = document.getElementById('event_maker_stop_date_year');
+    yearSelector.addEventListener('change', function(e){
+        yearStopSelector.options[yearStopSelector.selectedIndex].value = yearSelector.options[yearSelector.selectedIndex].value;
+        yearStopSelector.options[yearStopSelector.selectedIndex].innerText = yearSelector.options[yearSelector.selectedIndex].innerText;
+
+    });
+
+    const startHour = document.getElementById('event_maker_start_time_hour');
+    let stopHour = document.getElementById('event_maker_stop_time_hour');
+    startHour.addEventListener('change', function(e){
+        stopHour.options[stopHour.selectedIndex].value = startHour.options[startHour.selectedIndex].value;
+        stopHour.options[stopHour.selectedIndex].innerText = startHour.options[startHour.selectedIndex].innerText;
+
+    });
+
+    const startMin = document.getElementById('event_maker_start_time_minute');
+    let stopMin = document.getElementById('event_maker_stop_time_minute');
+    startMin.addEventListener('change', function(e){
+        stopMin.options[stopMin.selectedIndex].value = startMin.options[startMin.selectedIndex].value;
+        stopMin.options[stopMin.selectedIndex].innerText = startMin.options[startMin.selectedIndex].innerText;
+
+    });
+
 });
+
+
 
 
 dataMaker.addEventListener('click', function(){
@@ -256,10 +293,14 @@ function setDates(dateNumber) {
 }
 
 function showMinutesGraphic() {
-    document.getElementById('showChart').style.visibility = "visible";
-    clearDates(currentDates);
 
-    dates.forEach(function (element) {
+    if (document.querySelectorAll(".targetGraph")) {
+        document.querySelectorAll('.minPixs').forEach(function(element){
+            element.innerHTML = [];
+        });
+    }
+
+    document.querySelectorAll('.minPixs').forEach(function (element) {
         currentDates.push(element.innerText);
         let template = document.querySelector('#expandedDates');
         let clone = template.content.cloneNode(true);
