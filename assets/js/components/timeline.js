@@ -24,6 +24,9 @@ const dataMaker = document.getElementById('showChart');
 setDate(dayCounter);
 
 
+
+
+
 today[0].addEventListener('click', function (e) {
     document.getElementById('dataTarget').innerText = "";
     clearDates(currentDates);
@@ -95,6 +98,7 @@ eventsButton.addEventListener('click', function (e) {
 
 
 eventAdd.addEventListener('click', function () {
+
     if (document.getElementById('eventMaker')) {
         document.getElementById('showEvents').innerHTML = "";
     }
@@ -110,6 +114,16 @@ eventAdd.addEventListener('click', function () {
     const temp = document.getElementById('eventForm');
     let clone = temp.content.cloneNode(true);
     document.getElementById('eventAddTarget').appendChild(clone);
+
+    const monthSelect = document.getElementById("event_maker_start_date_month");
+    let monthStop = document.getElementById("event_makers_stop_date_month");
+
+    monthSelect.addEventListener('change', function(e){
+        monthStop = monthSelect.options[monthSelect.selectedIndex].value;
+        
+        console.log(monthSelect.options[monthSelect.selectedIndex].value);
+
+    })
 });
 
 

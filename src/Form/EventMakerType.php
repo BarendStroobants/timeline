@@ -29,7 +29,11 @@ class EventMakerType extends AbstractType
             ])
             ->add('stop', DateTimeType::class, [
                 'label' => 'Stop Time',
-                'placeholder' => 'Select',
+                'placeholder' => [
+                    'month' => 'month',
+                    'day' => 'day',
+                    'year' => 'year',
+                ],
                 'years' => range(2020, 2022),
 
             ])
