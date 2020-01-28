@@ -2,11 +2,16 @@
 
 namespace App\Repository;
 
+use App\Domain\AggregatedTimeperiodResult;
+use App\Domain\AnalyzerResult;
+use App\Domain\EventResult;
 use App\Entity\Event;
 use App\Entity\Person;
 use App\Util\Analyzer;
+use DateInterval;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Monolog\DateTimeImmutable;
 
 /**
  * @method Event|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,6 +21,8 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class EventRepository extends ServiceEntityRepository
 {
+    const ONE_DAY = 1440;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Event::class);
@@ -50,14 +57,13 @@ class EventRepository extends ServiceEntityRepository
     }
     */
 
-    public function getUsefulDataArray(Person $person, Analyzer $anal): array
+    /**
+     * @return array|AggregatedTimeperiodResult
+     * @throws \Exception
+     */
+    public function getUsefulDataArray(Person $person, Analyzer $analyzer): array
     {
-
-        $events = $this->findBy([
-            'person' => $person,
-        ]);
-        $superCounterExtreme = 0;
-
+/*
         $totalBeginning = [
             "sleep" => 0,
             "work" => 0,
@@ -68,72 +74,49 @@ class EventRepository extends ServiceEntityRepository
             "wash" => 0,
             "rest" => 0,
         ];
+*/
 
         $minuteArray = [];
 
         $holdover = [];
-        $counter = 0;
-        $indexCounter = 0;
-        foreach ($events as $key => $event) {
+        foreach ($this->findBy(['person' => $person]) as $key => $event) {
+            $analyzerResult = $analyzer->minuteGetter($event->getStart(), $event->getStop());
 
-            if ($indexCounter !== $event->getStart()->format('d')) {
-                $counter = 0;
+            $nextDayEnd = $analyzerResult->getEndRelative() - self::ONE_DAY;
+
+            $nextDay = new DateTimeImmutable(true);
+            $nextDay->setDate(intval($event->getStart()->format("y")), intval($event->getStart()->format("m")), intval($event->getStart()->format("d")));
+            $nextDay->add(new DateInterval('P1D'));
+            $analyzerResult->setEndRelative(self::ONE_DAY);
+
+
+            $tempStartEvent = new DateTimeImmutable(true);
+            $tempStartEvent->setDate(intval($event->getStart()->format("y")), intval($event->getStart()->format("m")), intval($event->getStart()->format("d")));
+            $minuteArray[] = new EventResult(
+                $analyzerResult,
+                $event->getActivity(),
+                $tempStartEvent
+            );
+
+            //$totalBeginning[$event->getActivity()] += $analyzerResult->getTotalMinutes();
+
+            if ($analyzerResult->getEndRelative() > self::ONE_DAY) {
+                $holdover[$nextDay->format('d')][0] = new EventResult(
+                    new AnalyzerResult(
+                        0,
+                        $nextDayEnd
+                    ),
+                    $event->getActivity(),
+                    $nextDay
+                );
+
+                //$totalBeginning[$event->getActivity()] += $analyzerResult->getTotalMinutes();
             }
-
-            $indexCounter = intval($event->getStart()->format('d'));
-            $indexMonthCounter = intval($event->getStart()->format('m')) - 1;
-            $indexYearCounter = intval($event->getStart()->format('Y'));
-
-
-            $info = $anal->minuteGetter($event->getStart(), $event->getStop());
-
-            if ($info['endRelative'] > 1440) {
-
-                $nextDayEnd = $info['endRelative'] - 1440;
-                $nextDay = (int)$event->getStart()->format('d') + 1;
-
-                $info['endRelative'] = 1440;
-                $minuteArray[$superCounterExtreme] = $info;
-                $minuteArray[$superCounterExtreme]['activity'] =
-                $minuteArray[$superCounterExtreme]['date'] = $indexCounter;
-                $minuteArray[$superCounterExtreme]['month'] = $indexMonthCounter;
-                $minuteArray[$superCounterExtreme]['year'] = $indexYearCounter;
-                $counter++;
-
-                $totalBeginning[$event->getActivity()] += $info['totalMinutes'];
-
-
-                $info['startRelative'] = 0;
-                $info['endRelative'] = $nextDayEnd;
-                $info['totalMinutes'] = $nextDayEnd;
-                $holdover[$nextDay][0] = $info;
-                $holdover[$nextDay][0]['activity'] = $event->getActivity();
-                $holdover[$nextDay][0]['date'] = $nextDay;
-                $holdover[$nextDay][0]['month'] = $indexMonthCounter;
-                $holdover[$nextDay][0]['year'] = $indexYearCounter;
-
-                $totalBeginning[$event->getActivity()] += $info['totalMinutes'];
-
-            } else {
-                $minuteArray[$superCounterExtreme] = $info;
-                $minuteArray[$superCounterExtreme]['activity'] = $event->getActivity();
-                $minuteArray[$superCounterExtreme]['date'] = $indexCounter;
-                $minuteArray[$superCounterExtreme]['month'] = $indexMonthCounter;
-                $minuteArray[$superCounterExtreme]['year'] = $indexYearCounter;
-                $counter++;
-
-                $totalBeginning[$event->getActivity()] += $info['totalMinutes'];
-            }
-
-
-            $superCounterExtreme++;
         }
-
 
         foreach ($holdover as $key => $holder) {
             $minuteArray[] = $holder[0];
         }
-
 
         return $minuteArray;
     }

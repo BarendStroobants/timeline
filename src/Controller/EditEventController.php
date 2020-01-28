@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Domain\EventChecker;
 use App\Entity\Event;
+use App\Exception\EventCheckerError;
 use App\Form\EventMakerType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -25,25 +27,15 @@ class EditEventController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $diff = $form->get('start')->getData()->diff($form->get('stop')->getData());
-            //no backwards time interval ie: stop time is before begin time
-            if ($diff->invert == 1) {
-                $this->addFlash('error', 'Please check time input');
-                return $this->redirectToRoute('profile');
-                //no events longer than 24 hours (as it is not the point of time management"
+            try {
+                $eventChecker = new EventChecker($form, $this->getDoctrine()->getManager(), $this->getUser());
+                $eventChecker->check();
+                $eventChecker->save($this->getUser());
             }
-            if ($diff->days > 1) {
-                $this->addFlash('error', 'Please limit your activity time within 24 hours');
+            catch(EventCheckerError $e) {
+                $this->addFlash('error', $e->getMessage());
                 return $this->redirectToRoute('profile');
             }
-
-            //send off to database
-            $event = $form->getData();
-            $event->setPerson($this->getUser());
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($event);
-            $em->flush();
 
             $this->addFlash('success', 'your event as been updated!');
             return $this->redirectToRoute('profile');

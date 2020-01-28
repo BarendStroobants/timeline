@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Domain\EventChecker;
 use App\Entity\Event;
+use App\Exception\EventCheckerError;
 use App\Form\EventMakerType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -17,7 +19,7 @@ class ProfileController extends AbstractController
      * @Route("/profile", name="profile")
      * @param Request $request
      * @param Analyzer $analyzer
-     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
     public function index(Request $request, Analyzer $analyzer)
     {
@@ -37,31 +39,21 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-
-           $diff = $form->get('start')->getData()->diff($form->get('stop')->getData());
-            //no backwards time interval ie: stop time is before begin time
-           if ($diff->invert == 1) {
-                $this->addFlash('error', 'Please check time input');
+            try {
+                $eventChecker = new EventChecker($form, $this->getDoctrine()->getManager());
+                $eventChecker->check();
+                $eventChecker->save($this->getUser());
+            }
+            catch(EventCheckerError $e) {
+                $this->addFlash('error', $e->getMessage());
                 return $this->redirectToRoute('profile');
-            //no events longer than 24 hours (as it is not the point of time management"
-                }
-            if ($diff->days > 1) {
-                $this->addFlash('error', 'Please limit your activity time within 24 hours');
-                return $this->redirectToRoute('profile');
-                }
-
-        //send off to database
-           $event = $form->getData();
-           $event->setPerson($this->getUser());
-           $em = $this->getDoctrine()->getManager();
-           $em->persist($event);
-           $em->flush();
+            }
 
           $this->addFlash('success', 'Your message has been added!');
           return $this->redirectToRoute('profile');
         }
 
+        var_dump($getEvents2);
         return $this->render('profile/index.html.twig', [
             'form' => $form->createView(),
             'getEvents' => $getEvents,

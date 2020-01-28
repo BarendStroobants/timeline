@@ -7,7 +7,7 @@
 @import "partials/eventForm";
 
 @mixin boxshadower {
-     box-shadow: 4px 5px 5px black;
+     box-shadow: -4px 5px 5px black;
 }
 
 
@@ -80,7 +80,10 @@ body {
 }
 
 .mainHeader {
-    text-shadow: 4px 3px 0 #7A7A7A, -8px 2px 6px rgba(10,10,10,0.14);
+    font-weight: bold;
+    font-size: 5em;
+    color: #e2f0ef;
+    text-shadow: -4px 0 6px #51aaa3, -4px 0 10px black;
 }
 
     .minutes {
@@ -202,6 +205,7 @@ body {
 .callToAction {
     font-size: 35px;
     min-width: 180px;
+    @include boxshadower;
 }
 
 .totalMinute {

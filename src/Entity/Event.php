@@ -35,17 +35,17 @@ class Event
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $activity;
+    private $activity = '';
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $location;
+    private $location = '';
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $description;
+    private $description = '';
 
     public function getId(): ?int
     {
@@ -64,7 +64,7 @@ class Event
         return $this;
     }
 
-    public function getStart(): ?\DateTimeInterface
+    public function getStart(): \DateTimeInterface
     {
         return $this->start;
     }
@@ -76,7 +76,7 @@ class Event
         return $this;
     }
 
-    public function getStop(): ?\DateTimeInterface
+    public function getStop(): \DateTimeInterface
     {
         return $this->stop;
     }
@@ -88,7 +88,7 @@ class Event
         return $this;
     }
 
-    public function getActivity(): ?string
+    public function getActivity(): string
     {
         return $this->activity;
     }
@@ -100,24 +100,24 @@ class Event
         return $this;
     }
 
-    public function getLocation(): ?string
+    public function getLocation(): string
     {
         return $this->location;
     }
 
-    public function setLocation(?string $location): self
+    public function setLocation(string $location): self
     {
         $this->location = $location;
 
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 
