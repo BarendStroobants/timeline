@@ -60,7 +60,7 @@
                 <td class="" >{{include('profile/_editEvent.html.twig')}}</td>
                 <td class=""><span class="bottomboxbutton p-1" id="start">{{ event.start|date("d/m/y") }}<span> {{ event.start|date('h:i') }}</span></span></td>
                 <td class=""><span class="bottomboxbutton p-1" id="end">{{ event.stop|date("d/m/y") }} <span> {{ event.stop|date('h:i') }}</span></span></td>
-                <td class=""><span class="bottomboxbutton  p-1" id="eventDescription">{{ event.description|slice(0, 13) }}</span></td>
+                <td class=""><span class="bottomboxbutton p-1" id="eventDescription">{{ event.description|slice(0, 13) }}</span></td>
                 <td class=""><span class="bottomboxbutton p-1" id="activity">{{ event.activity|slice(0, 13) }}</span></td>
                 <td class="" >{{ include('profile/_deleteEvent.html.twig') }}</td>
             </tr>
