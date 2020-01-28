@@ -9,7 +9,7 @@
                 <button id="eventAdd" class="bottomboxbutton callToAction">Add</button>
 
 
-            <a class='bottomboxbutton text-center callToAction' href="{{ path('app_logout') }}">Logout</a>
+            <a id="logoutBoxProfile" class='bottomboxbutton text-center callToAction logoutBox' href="{{ path('app_logout') }}"><span class="logoutBox">Logout</span></a>
 
 
     </section>
@@ -26,12 +26,12 @@
 
 
 <template id="data">
-    <section id='chart' class="row-fluid d-flex justify-content-center mb-5 py-5">
-        <div class="pieChartBox col-5">
+    <section id='chart' class="d-flex justify-content-center mb-5 py-5">
+        <div class="pieChartBox">
             <canvas id="pieChart" width="40" height="40"></canvas>
         </div>
-        <div class="col-1"></div>
-        <div class="col-4 d-flex flex-column text-center justify-content-around totalMinute">
+
+        <div class=" d-flex flex-column text-center justify-content-around totalMinute">
             <span>Study <span id="studyTotal"></span></span>
             <span>Sleep <span id="sleepTotal"></span></span>
             <span>Wash <span id="washTotal"></span></span>
@@ -57,12 +57,12 @@
         </tr>
         {% for event in getEvents %}
             <tr>
-                <td class="" ><a class="p-1 bottomboxbuttonSizer bottomboxbutton buttonsmallerizer bg-success" id="{{ event.id }}">E</a></td>
+                <td class="" >{{include('profile/_editEvent.html.twig')}}</td>
                 <td class=""><span class="bottomboxbutton p-1" id="start">{{ event.start|date("d/m/y") }}<span> {{ event.start|date('h:i') }}</span></span></td>
                 <td class=""><span class="bottomboxbutton p-1" id="end">{{ event.stop|date("d/m/y") }} <span> {{ event.stop|date('h:i') }}</span></span></td>
                 <td class=""><span class="bottomboxbutton  p-1" id="eventDescription">{{ event.description|slice(0, 13) }}</span></td>
                 <td class=""><span class="bottomboxbutton p-1" id="activity">{{ event.activity|slice(0, 13) }}</span></td>
-                <td class="" ><a class="p-1 bottomboxbuttonSizer bottomboxbutton buttonsmallerizer bg-danger" id="{{ event.id }}" href="{{ path('delete_event', {'id': event.id }) }}">X</a></td>
+                <td class="" >{{ include('profile/_deleteEvent.html.twig') }}</td>
             </tr>
         {% endfor %}
     </table>
