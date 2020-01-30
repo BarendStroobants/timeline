@@ -17,10 +17,6 @@ class Analyzer
     {
     }
 
-    public function minuteMaker($array): array
-    {
-        return [];
-    }
 
     public function minuteGetter(\DateTime $dateStart, \DateTime $dateEnd): array
     {

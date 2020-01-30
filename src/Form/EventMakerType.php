@@ -24,7 +24,7 @@ class EventMakerType extends AbstractType
                     'day' => 'day',
                     'year' => 'year',
                 ],
-                'years' => range(2020, 2022),
+                'years' => range(2020, 2020),
 
             ])
             ->add('stop', DateTimeType::class, [
@@ -34,7 +34,7 @@ class EventMakerType extends AbstractType
                     'day' => 'day',
                     'year' => 'year',
                 ],
-                'years' => range(2020, 2022),
+                'years' => range(2020, 2020),
 
             ])
             ->add('activity', ChoiceType::class, [

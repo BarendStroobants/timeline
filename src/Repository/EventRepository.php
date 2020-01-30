@@ -58,7 +58,7 @@ class EventRepository extends ServiceEntityRepository
         ]);
         $superCounterExtreme = 0;
 
-        $totalBeginning = [
+       $totalBeginning = [
             "sleep" => 0,
             "work" => 0,
             "travel" => 0,
@@ -89,30 +89,59 @@ class EventRepository extends ServiceEntityRepository
 
             if ($info['endRelative'] > 1440) {
 
-                $nextDayEnd = $info['endRelative'] - 1440;
-                $nextDay = (int)$event->getStart()->format('d') + 1;
+                if (intval($event->getStart()->format('m')) - 1 !==  intval($event->getStop()->format('m')) - 1) {
+                    $nextDayEnd = $info['endRelative'] - 1440;
+                    $nextDay = 1;
 
-                $info['endRelative'] = 1440;
-                $minuteArray[$superCounterExtreme] = $info;
-                $minuteArray[$superCounterExtreme]['activity'] =
-                $minuteArray[$superCounterExtreme]['date'] = $indexCounter;
-                $minuteArray[$superCounterExtreme]['month'] = $indexMonthCounter;
-                $minuteArray[$superCounterExtreme]['year'] = $indexYearCounter;
-                $counter++;
+                    $info['endRelative'] = 1440;
+                    $minuteArray[$superCounterExtreme] = $info;
+                    $minuteArray[$superCounterExtreme]['activity'] = $event->getActivity();
+                    $minuteArray[$superCounterExtreme]['date'] = $indexCounter;
+                    $minuteArray[$superCounterExtreme]['month'] = $indexMonthCounter;
+                    $minuteArray[$superCounterExtreme]['year'] = $indexYearCounter;
+                    $counter++;
 
-                $totalBeginning[$event->getActivity()] += $info['totalMinutes'];
+                    $totalBeginning[$event->getActivity()] += $info['totalMinutes'];
 
 
-                $info['startRelative'] = 0;
-                $info['endRelative'] = $nextDayEnd;
-                $info['totalMinutes'] = $nextDayEnd;
-                $holdover[$nextDay][0] = $info;
-                $holdover[$nextDay][0]['activity'] = $event->getActivity();
-                $holdover[$nextDay][0]['date'] = $nextDay;
-                $holdover[$nextDay][0]['month'] = $indexMonthCounter;
-                $holdover[$nextDay][0]['year'] = $indexYearCounter;
+                    $info['startRelative'] = 0;
+                    $info['endRelative'] = $nextDayEnd;
+                    $info['totalMinutes'] = $nextDayEnd;
+                    $holdover[$nextDay][0] = $info;
+                    $holdover[$nextDay][0]['activity'] = $event->getActivity();
+                    $holdover[$nextDay][0]['date'] = $nextDay;
+                    $holdover[$nextDay][0]['month'] = $indexMonthCounter+1;
+                    $holdover[$nextDay][0]['year'] = $indexYearCounter;
 
-                $totalBeginning[$event->getActivity()] += $info['totalMinutes'];
+                    $totalBeginning[$event->getActivity()] += $info['totalMinutes'];
+
+                } else {
+                    $nextDayEnd = $info['endRelative'] - 1440;
+                    $nextDay = (int)$event->getStart()->format('d') + 1;
+
+                    $info['endRelative'] = 1440;
+                    $minuteArray[$superCounterExtreme] = $info;
+                    $minuteArray[$superCounterExtreme]['activity'] = $event->getActivity();
+                    $minuteArray[$superCounterExtreme]['date'] = $indexCounter;
+                    $minuteArray[$superCounterExtreme]['month'] = $indexMonthCounter;
+                    $minuteArray[$superCounterExtreme]['year'] = $indexYearCounter;
+                    $counter++;
+
+                    $totalBeginning[$event->getActivity()] += $info['totalMinutes'];
+
+
+                    $info['startRelative'] = 0;
+                    $info['endRelative'] = $nextDayEnd;
+                    $info['totalMinutes'] = $nextDayEnd;
+                    $holdover[$nextDay][0] = $info;
+                    $holdover[$nextDay][0]['activity'] = $event->getActivity();
+                    $holdover[$nextDay][0]['date'] = $nextDay;
+                    $holdover[$nextDay][0]['month'] = $indexMonthCounter;
+                    $holdover[$nextDay][0]['year'] = $indexYearCounter;
+
+                    $totalBeginning[$event->getActivity()] += $info['totalMinutes'];
+
+                }
 
             } else {
                 $minuteArray[$superCounterExtreme] = $info;
